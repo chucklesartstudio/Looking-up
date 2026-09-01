@@ -2,7 +2,7 @@ export const WHATSAPP_NUMBER = '917903622121'
 
 export const IMAGES = {
   coverHero: 'https://images.pexels.com/photos/16005636/pexels-photo-16005636.jpeg?auto=compress&cs=tinysrgb&w=940',
-  facadeUp: 'https://images.pexels.com/photos/5833720/pexels-photo-5833720.jpeg?auto=compress&cs=tinysrgb&w=940',
+  facadeUp: '/ballard-estate.jpg',
   facadeBw: 'https://images.pexels.com/photos/5544034/pexels-photo-5544034.jpeg?auto=compress&cs=tinysrgb&w=940',
   facadeDetail: 'https://images.pexels.com/photos/38241041/pexels-photo-38241041.jpeg?auto=compress&cs=tinysrgb&w=940',
   facadeCorner: 'https://images.pexels.com/photos/30673993/pexels-photo-30673993.jpeg?auto=compress&cs=tinysrgb&w=940',
@@ -29,7 +29,7 @@ export const IMAGES = {
   // Walk checkpoint photos
   ballardWalk1: 'https://images.pexels.com/photos/27264872/pexels-photo-27264872.jpeg?auto=compress&cs=tinysrgb&w=940',
   ballardWalk2: 'https://images.pexels.com/photos/8452150/pexels-photo-8452150.jpeg?auto=compress&cs=tinysrgb&w=940',
-  colabaWalk1: 'https://images.pexels.com/photos/16376255/pexels-photo-16376255.jpeg?auto=compress&cs=tinysrgb&w=940',
+  colabaWalk1: '/colaba.jpg',
   colabaWalk2: 'https://images.pexels.com/photos/16005633/pexels-photo-16005633.jpeg?auto=compress&cs=tinysrgb&w=940',
   archive1: 'https://images.pexels.com/photos/706352/pexels-photo-706352.jpeg?auto=compress&cs=tinysrgb&w=940',
   archive2: 'https://images.pexels.com/photos/16005640/pexels-photo-16005640.jpeg?auto=compress&cs=tinysrgb&w=940',
