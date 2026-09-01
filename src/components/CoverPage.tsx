@@ -20,9 +20,9 @@ const MENU_ITEMS = [
 ]
 
 const SLIDES = [
-  { image: IMAGES.facadeUp, caption: 'Ballard Estate' },
-  { image: IMAGES.colabaWalk1, caption: 'Colaba Causeway' },
-  { image: IMAGES.closingSky, caption: 'Looking Out at Sea' },
+  { image: '/ballard-estate.jpg', caption: 'Ballard Estate' },
+  { image: '/colaba.jpg', caption: 'Colaba' },
+  { image: IMAGES.closingSky, caption: 'Looking up in Bombay' },
 ]
 
 export function CoverPage() {
