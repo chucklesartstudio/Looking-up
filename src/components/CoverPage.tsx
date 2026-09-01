@@ -21,7 +21,7 @@ const MENU_ITEMS = [
 
 const SLIDES = [
   { image: `${import.meta.env.BASE_URL}ballard-estate.png`, caption: 'Ballard Estate' },
-  { image: `${import.meta.env.BASE_URL}colaba.png`, caption: 'Colaba' },
+  { image: `${import.meta.env.BASE_URL}Colaba.png`, caption: 'Colaba' },
   { image: IMAGES.closingSky, caption: 'Looking up in Bombay' },
 ]
 
