@@ -12,11 +12,26 @@ const TICKER_ITEMS = [
 ]
 
 const MENU_ITEMS = [
-  { label: 'Looking Up in Ballard Estate', href: '#two-walks' },
-  { label: 'Looking Up in Colaba', href: '#two-walks' },
-  { label: 'Looking Out at Sea', href: '#walks' },
-  { label: '400001 and Co.', href: '#400001' },
-  { label: 'Walks & Field Notes', href: '#walks' },
+  {
+    label: 'Looking Up in Ballard Estate',
+    target: 'ballard',
+  },
+  {
+    label: 'Looking Up in Colaba',
+    target: 'colaba',
+  },
+  {
+    label: 'Looking Out at Sea',
+    target: '#walks',
+  },
+  {
+    label: '400001 and Co.',
+    target: '#400001',
+  },
+  {
+    label: 'Walks & Field Notes',
+    target: '#field-notes',
+  },
 ]
 
 const SLIDES = [
@@ -53,26 +68,49 @@ export function CoverPage() {
   )
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setCurrent((c) => (c + 1) % SLIDES.length),
-      5000
-    )
+    const timer = setInterval(next, 5000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [next])
 
-  const handleNav = (href: string) => {
-    const el = document.querySelector(href)
+  const scrollToSection = (selector: string) => {
+    const el = document.querySelector(selector)
 
     if (el) {
       const top =
-        el.getBoundingClientRect().top + window.scrollY - 70
+        el.getBoundingClientRect().top +
+        window.scrollY -
+        70
 
       window.scrollTo({
         top,
         behavior: 'smooth',
       })
     }
+  }
+
+  const handleNav = (target: string) => {
+    /*
+      Ballard and Colaba need to do two things:
+      1. Open the correct walk inside TwoWalksOneLens
+      2. Scroll to the Two Walks section
+
+      TwoWalksOneLens will listen for this event.
+    */
+    if (target === 'ballard' || target === 'colaba') {
+      window.dispatchEvent(
+        new CustomEvent('looking-up:open-walk', {
+          detail: {
+            walk: target,
+          },
+        })
+      )
+
+      scrollToSection('#two-walks')
+      return
+    }
+
+    scrollToSection(target)
   }
 
   return (
@@ -109,10 +147,10 @@ export function CoverPage() {
               height: '100%',
               objectFit: 'cover',
 
-              // Shift photograph slightly left
-              objectPosition: isMobile ? '58% center' : '55% center',
+              objectPosition: isMobile
+                ? '58% center'
+                : '55% center',
 
-              // Slightly darker, richer image
               filter: isMobile
                 ? 'contrast(1.06) saturate(1.05) brightness(0.78)'
                 : 'contrast(1.12) saturate(1.08) brightness(0.76)',
@@ -154,7 +192,7 @@ export function CoverPage() {
         }}
       >
         <button
-          onClick={() => handleNav('#walks')}
+          onClick={() => scrollToSection('#walks')}
           style={{
             background: 'none',
             border: 'none',
@@ -194,14 +232,11 @@ export function CoverPage() {
       </div>
 
       {/* =========================================================
-          TRACK LISTING
+          RIGHT TRACK LISTING / PANE
 
-          Desktop:
-          Existing right-side navigation.
-
-          Mobile:
-          No background pane. The track listing sits directly
-          over the photograph.
+          IMPORTANT:
+          The pane is intentionally retained on BOTH desktop
+          and mobile.
       ========================================================= */}
       <nav
         style={{
@@ -213,14 +248,24 @@ export function CoverPage() {
           width: isMobile ? '38%' : '340px',
 
           background: isMobile
-            ? 'transparent'
+            ? 'linear-gradient(
+                90deg,
+                rgba(18,18,18,0.08) 0%,
+                rgba(18,18,18,0.42) 100%
+              )'
             : 'rgba(0,0,0,0.5)',
 
           backdropFilter: isMobile
-            ? 'none'
+            ? 'blur(2px)'
             : 'blur(6px)',
 
-          borderLeft: 'none',
+          WebkitBackdropFilter: isMobile
+            ? 'blur(2px)'
+            : 'blur(6px)',
+
+          borderLeft: isMobile
+            ? '1px solid rgba(255,255,255,0.16)'
+            : 'none',
 
           display: 'flex',
           flexDirection: 'column',
@@ -236,7 +281,7 @@ export function CoverPage() {
         {MENU_ITEMS.map((item, i) => (
           <button
             key={i}
-            onClick={() => handleNav(item.href)}
+            onClick={() => handleNav(item.target)}
             style={{
               background: 'none',
               border: 'none',
@@ -254,7 +299,9 @@ export function CoverPage() {
                 ? 'clamp(10px, 2.8vw, 13px)'
                 : '17px',
 
-              letterSpacing: isMobile ? '1px' : '2px',
+              letterSpacing: isMobile
+                ? '1px'
+                : '2px',
 
               textTransform: 'uppercase',
 
@@ -266,7 +313,9 @@ export function CoverPage() {
                 ? '13px 0'
                 : '12px 0',
 
-              textAlign: isMobile ? 'left' : 'right',
+              textAlign: isMobile
+                ? 'left'
+                : 'right',
 
               transition:
                 'color 0.3s, transform 0.3s',
@@ -296,36 +345,36 @@ export function CoverPage() {
 
       {/* =========================================================
           ALBUM TITLE
-
-          Desktop:
-          Centered.
-
-          Mobile:
-          Restricted to the photograph side so it NEVER
-          competes with the track listing.
       ========================================================= */}
       <div
         style={{
           position: 'absolute',
 
-          // Vertically centered on both desktop and mobile
           top: '50%',
 
-          left: isMobile ? '56px' : '50%',
+          left: isMobile
+            ? '56px'
+            : '50%',
 
           transform: isMobile
             ? 'translateY(-50%)'
             : 'translate(-50%, -50%)',
 
-          textAlign: isMobile ? 'left' : 'center',
+          textAlign: isMobile
+            ? 'left'
+            : 'center',
 
           zIndex: 4,
 
           pointerEvents: 'none',
 
-          width: isMobile ? '54%' : '100%',
+          width: isMobile
+            ? '54%'
+            : '100%',
 
-          padding: isMobile ? '0' : '0 120px',
+          padding: isMobile
+            ? '0'
+            : '0 120px',
         }}
       >
         <h1
@@ -339,7 +388,9 @@ export function CoverPage() {
 
             lineHeight: 0.92,
 
-            letterSpacing: isMobile ? '0px' : '3px',
+            letterSpacing: isMobile
+              ? '0px'
+              : '3px',
 
             textTransform: 'uppercase',
 
@@ -366,7 +417,9 @@ export function CoverPage() {
 
             lineHeight: 0.92,
 
-            letterSpacing: isMobile ? '0px' : '3px',
+            letterSpacing: isMobile
+              ? '0px'
+              : '3px',
 
             textTransform: 'uppercase',
 
@@ -389,7 +442,9 @@ export function CoverPage() {
       <div
         style={{
           position: 'absolute',
-          bottom: isMobile ? '24px' : '40px',
+          bottom: isMobile
+            ? '24px'
+            : '40px',
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
@@ -403,7 +458,10 @@ export function CoverPage() {
             onClick={() => setCurrent(i)}
             aria-label={`Slide ${i + 1}`}
             style={{
-              width: i === current ? '32px' : '10px',
+              width:
+                i === current
+                  ? '32px'
+                  : '10px',
               height: '4px',
               background:
                 i === current
@@ -411,7 +469,8 @@ export function CoverPage() {
                   : 'rgba(255,255,255,0.45)',
               border: 'none',
               cursor: 'pointer',
-              transition: 'all 0.4s ease',
+              transition:
+                'all 0.4s ease',
               padding: 0,
             }}
           />
