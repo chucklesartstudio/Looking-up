@@ -200,8 +200,8 @@ export function CoverPage() {
           Existing right-side navigation.
 
           Mobile:
-          Becomes the "track listing" side of the album cover.
-          No heavy black pane.
+          No background pane. The track listing sits directly
+          over the photograph.
       ========================================================= */}
       <nav
         style={{
@@ -212,18 +212,15 @@ export function CoverPage() {
 
           width: isMobile ? '38%' : '340px',
 
-          /* Slightly stronger mobile transparency */
           background: isMobile
-            ? 'linear-gradient(90deg, rgba(18,18,18,0.22) 0%, rgba(18,18,18,0.52) 100%)'
+            ? 'transparent'
             : 'rgba(0,0,0,0.5)',
 
           backdropFilter: isMobile
-            ? 'blur(2px)'
+            ? 'none'
             : 'blur(6px)',
 
-          borderLeft: isMobile
-            ? '1px solid rgba(255,255,255,0.16)'
-            : 'none',
+          borderLeft: 'none',
 
           display: 'flex',
           flexDirection: 'column',
@@ -245,7 +242,7 @@ export function CoverPage() {
               border: 'none',
 
               borderBottom: isMobile
-                ? '1px solid rgba(255,255,255,0.18)'
+                ? '1px solid rgba(255,255,255,0.86)'
                 : 'none',
 
               cursor: 'pointer',
@@ -262,7 +259,7 @@ export function CoverPage() {
               textTransform: 'uppercase',
 
               color: isMobile
-                ? 'rgba(255,255,255,0.86)'
+                ? 'rgba(255,255,255,0.92)'
                 : 'rgba(255,255,255,0.75)',
 
               padding: isMobile
@@ -285,7 +282,7 @@ export function CoverPage() {
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = isMobile
-                ? 'rgba(255,255,255,0.86)'
+                ? 'rgba(255,255,255,0.92)'
                 : 'rgba(255,255,255,0.75)'
 
               e.currentTarget.style.transform =
