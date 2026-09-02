@@ -16,7 +16,7 @@ const NAV_LINKS = [
   {
     label: 'Looking Out at Sea',
     href: '#walks',
-    image: `${BASE}Looking%20up%20Sea.png`,
+    image: `${BASE}Looking-up-Sea.png`,
   },
   {
     label: '400001 and Co.',
