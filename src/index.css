@@ -1289,3 +1289,30 @@ body {
     height: auto !important;
   }
 }
+/* =========================================
+   TWO WALKS — MOBILE CHECKPOINTS
+   ========================================= */
+
+@media (max-width: 768px) {
+  .two-walks-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .checkpoints-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  .checkpoints-grid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .checkpoints-grid p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin-top: 7px !important;
+  }
+}
