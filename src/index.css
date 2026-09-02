@@ -537,39 +537,245 @@ body {
 }
 .navbar.transparent .nav-hamburger span { background: var(--cream); }
 
-/* Mobile menu */
+/* ─── Mobile scrapbook / track-list menu ─────────── */
+
 .mobile-menu {
   position: fixed;
   inset: 0;
   background: var(--cream);
   z-index: 890;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  animation: fadeIn 0.35s ease;
 }
-.mobile-nav-link {
+
+.mobile-menu-inner {
+  min-height: 100%;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+
+  padding: 100px 28px 42px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 22px;
+
+  align-content: center;
+  justify-items: center;
+
+  position: relative;
+}
+
+/* Each track is a button, but visually becomes a photograph */
+.mobile-track {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0;
+
+  cursor: pointer;
+
+  display: block;
+
+  transition:
+    transform 0.35s var(--ease-out),
+    filter 0.35s var(--ease-out);
+}
+
+/* Polaroid itself */
+.mobile-track .polaroid {
+  width: 100%;
+  background: #fff;
+
+  padding: 9px 9px 18px;
+
+  box-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.14),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+
+  position: relative;
+
+  transition:
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+/* Slightly imperfect / handmade positioning */
+.mobile-track-1 .polaroid {
+  transform: rotate(-3deg);
+}
+
+.mobile-track-2 .polaroid {
+  transform: rotate(2.5deg);
+}
+
+.mobile-track-3 .polaroid {
+  transform: rotate(-1.5deg);
+}
+
+.mobile-track-4 .polaroid {
+  transform: rotate(3deg);
+}
+
+.mobile-track-5 .polaroid {
+  transform: rotate(-2.5deg);
+}
+
+/* Photo */
+.mobile-track .polaroid-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.mobile-track .polaroid-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.6s var(--ease-out),
+    filter 0.6s var(--ease-out);
+}
+
+/* Caption */
+.mobile-track .polaroid-caption {
+  margin-top: 13px;
+  padding: 0 4px;
+
+  font-family: var(--font-mono);
+  font-size: 8px;
+  line-height: 1.4;
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  color: var(--ink);
+
+  text-align: left;
+}
+
+/* Small arrow / track indicator */
+.mobile-track .track-arrow {
+  position: absolute;
+
+  right: 10px;
+  bottom: 14px;
+
   font-family: var(--font-mono);
   font-size: 13px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px 0;
-  transition: color 0.2s;
+
+  color: var(--terra);
+
+  opacity: 0;
+
+  transform: translateX(-5px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
-.mobile-nav-link:hover { color: var(--terra); }
+
+/* Hover / tap interaction */
+.mobile-track:hover {
+  transform: translateY(-5px);
+}
+
+.mobile-track:hover .polaroid {
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.18),
+    0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.mobile-track:hover .polaroid-image img {
+  transform: scale(1.04);
+}
+
+.mobile-track:hover .track-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ─── Book a Walk ────────────────────────────────── */
+
+.mobile-book {
+  grid-column: 1 / -1;
+
+  margin-top: 4px;
+
+  justify-self: center;
+
+  padding: 13px 26px;
+
+  box-shadow: var(--shadow-soft);
+}
+
+
+/* ─── Mobile navigation controls ─────────────────── */
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
 }
 
+
+/* ─── Small phones ───────────────────────────────── */
+
+@media (max-width: 420px) {
+
+  .mobile-menu-inner {
+    padding:
+      92px 22px 34px;
+
+    gap: 24px 16px;
+  }
+
+  .mobile-track .polaroid {
+    padding: 7px 7px 15px;
+  }
+
+  .mobile-track .polaroid-caption {
+    font-size: 7px;
+    letter-spacing: 1.2px;
+    margin-top: 10px;
+  }
+
+  .mobile-track .track-arrow {
+    display: none;
+  }
+
+  .mobile-book {
+    margin-top: 2px;
+  }
+
+}
+
+
+/* ─── Very small screens ────────────────────────── */
+
+@media (max-width: 340px) {
+
+  .mobile-menu-inner {
+    grid-template-columns: 1fr;
+    max-width: 260px;
+  }
+
+  .mobile-track .polaroid-caption {
+    font-size: 8px;
+  }
+
+}
 /* ─── Responsive ──────────────────────────────── */
 @media (max-width: 768px) {
   .field-notebook-grid {
