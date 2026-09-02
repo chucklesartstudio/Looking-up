@@ -20,9 +20,18 @@ const MENU_ITEMS = [
 ]
 
 const SLIDES = [
-  { image: `${import.meta.env.BASE_URL}ballard-estate.png`, caption: 'Ballard Estate' },
-  { image: `${import.meta.env.BASE_URL}Colaba.png`, caption: 'Colaba' },
-  { image: IMAGES.closingSky, caption: 'Looking up in Bombay' },
+  {
+    image: `${import.meta.env.BASE_URL}ballard-estate.png`,
+    caption: 'Ballard Estate',
+  },
+  {
+    image: `${import.meta.env.BASE_URL}Colaba.png`,
+    caption: 'Colaba',
+  },
+  {
+    image: IMAGES.closingSky,
+    caption: 'Looking up in Bombay',
+  },
 ]
 
 export function CoverPage() {
@@ -31,24 +40,43 @@ export function CoverPage() {
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
+
     check()
     window.addEventListener('resize', check)
+
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const next = useCallback(() => setCurrent((c) => (c + 1) % SLIDES.length), [])
-  const prev = useCallback(() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length), [])
+  const next = useCallback(
+    () => setCurrent((c) => (c + 1) % SLIDES.length),
+    []
+  )
+
+  const prev = useCallback(
+    () => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length),
+    []
+  )
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrent((c) => (c + 1) % SLIDES.length), 6000)
+    const timer = setInterval(
+      () => setCurrent((c) => (c + 1) % SLIDES.length),
+      6000
+    )
+
     return () => clearInterval(timer)
   }, [])
 
   const handleNav = (href: string) => {
     const el = document.querySelector(href)
+
     if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 70
-      window.scrollTo({ top, behavior: 'smooth' })
+      const top =
+        el.getBoundingClientRect().top + window.scrollY - 70
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -59,10 +87,12 @@ export function CoverPage() {
         height: '100vh',
         width: '100%',
         overflow: 'hidden',
-        background: '#0a0a0a',
+        background: '#25212b',
       }}
     >
-      {/* Slides */}
+      {/* =========================================================
+          SLIDES
+      ========================================================= */}
       {SLIDES.map((slide, i) => (
         <div
           key={i}
@@ -70,8 +100,10 @@ export function CoverPage() {
             position: 'absolute',
             inset: 0,
             opacity: i === current ? 1 : 0,
-            transition: 'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-            transform: i === current ? 'scale(1)' : 'scale(1.08)',
+            transition:
+              'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+            transform:
+              i === current ? 'scale(1)' : 'scale(1.04)',
           }}
         >
           <img
@@ -81,23 +113,33 @@ export function CoverPage() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              filter: 'contrast(1.15) saturate(1.2) brightness(0.7)',
+              filter: isMobile
+                ? 'contrast(1.06) saturate(1.08) brightness(0.86)'
+                : 'contrast(1.12) saturate(1.12) brightness(0.76)',
             }}
           />
         </div>
       ))}
 
-      {/* Dark overlay */}
+      {/* =========================================================
+          IMAGE OVERLAY
+          Much lighter than before.
+      ========================================================= */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 100%)',
+          background: isMobile
+            ? 'linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.02) 45%, rgba(0,0,0,0.38) 100%)'
+            : 'linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.58) 100%)',
+          pointerEvents: 'none',
         }}
       />
 
-      {/* Left ticker */}
+      {/* =========================================================
+          LEFT TICKER
+          Kept essentially as-is.
+      ========================================================= */}
       <div
         style={{
           position: 'absolute',
@@ -105,7 +147,7 @@ export function CoverPage() {
           top: 0,
           bottom: 0,
           width: isMobile ? '40px' : '56px',
-          background: 'rgba(0,0,0,0.55)',
+          background: 'rgba(0,0,0,0.48)',
           overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
@@ -122,51 +164,76 @@ export function CoverPage() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '0',
+            gap: 0,
             animation: 'tickerScroll 20s linear infinite',
             whiteSpace: 'nowrap',
             padding: 0,
           }}
           aria-label="Go to Walks and Field Notes"
         >
-          {[...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: "'Oswald', sans-serif",
-                fontWeight: 600,
-                fontSize: isMobile ? '11px' : '14px',
-                letterSpacing: '3px',
-                textTransform: 'uppercase',
-                color: i % 2 === 0 ? TEAL : BLUE,
-                writingMode: 'vertical-rl',
-                textOrientation: 'mixed',
-                padding: '20px 0',
-                display: 'block',
-              }}
-            >
-              {item}
-            </span>
-          ))}
+          {[...TICKER_ITEMS, ...TICKER_ITEMS, ...TICKER_ITEMS].map(
+            (item, i) => (
+              <span
+                key={i}
+                style={{
+                  fontFamily: "'Oswald', sans-serif",
+                  fontWeight: 600,
+                  fontSize: isMobile ? '11px' : '14px',
+                  letterSpacing: '3px',
+                  textTransform: 'uppercase',
+                  color: i % 2 === 0 ? TEAL : BLUE,
+                  writingMode: 'vertical-rl',
+                  textOrientation: 'mixed',
+                  padding: '20px 0',
+                  display: 'block',
+                }}
+              >
+                {item}
+              </span>
+            )
+          )}
         </button>
       </div>
 
-      {/* Right menu */}
+      {/* =========================================================
+          TRACK LISTING
+          
+          Desktop:
+          Existing right-side navigation.
+
+          Mobile:
+          Becomes the "track listing" side of the album cover.
+          No heavy black pane.
+      ========================================================= */}
       <nav
         style={{
           position: 'absolute',
           right: 0,
           top: 0,
           bottom: 0,
-          width: isMobile ? '55%' : '340px',
-          background: isMobile ? 'transparent' : 'rgba(0,0,0,0.5)',
-          backdropFilter: isMobile ? 'none' : 'blur(6px)',
+
+          width: isMobile ? '38%' : '340px',
+
+          background: isMobile
+            ? 'linear-gradient(90deg, rgba(18,18,18,0.08) 0%, rgba(18,18,18,0.36) 100%)'
+            : 'rgba(0,0,0,0.5)',
+
+          backdropFilter: isMobile
+            ? 'blur(2px)'
+            : 'blur(6px)',
+
+          borderLeft: isMobile
+            ? '1px solid rgba(255,255,255,0.16)'
+            : 'none',
+
           display: 'flex',
           flexDirection: 'column',
-          alignItems: isMobile ? 'flex-end' : 'flex-end',
+          alignItems: 'stretch',
           justifyContent: 'center',
-          paddingRight: isMobile ? '18px' : '48px',
-          paddingLeft: '0',
+
+          paddingRight: isMobile ? '14px' : '48px',
+          paddingLeft: isMobile ? '14px' : '0',
+
           zIndex: 5,
         }}
       >
@@ -177,78 +244,166 @@ export function CoverPage() {
             style={{
               background: 'none',
               border: 'none',
+              borderBottom: isMobile
+                ? '1px solid rgba(255,255,255,0.18)'
+                : 'none',
+
               cursor: 'pointer',
+
               fontFamily: "'Oswald', sans-serif",
               fontWeight: 400,
-              fontSize: isMobile ? '13px' : '17px',
-              letterSpacing: isMobile ? '1.5px' : '2px',
+
+              fontSize: isMobile
+                ? 'clamp(10px, 2.8vw, 13px)'
+                : '17px',
+
+              letterSpacing: isMobile ? '1px' : '2px',
+
               textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.75)',
-              padding: isMobile ? '10px 0' : '12px 0',
-              textAlign: 'right',
-              transition: 'color 0.3s, transform 0.3s',
-              whiteSpace: 'nowrap',
+
+              color: isMobile
+                ? 'rgba(255,255,255,0.86)'
+                : 'rgba(255,255,255,0.75)',
+
+              padding: isMobile
+                ? '13px 0'
+                : '12px 0',
+
+              textAlign: isMobile ? 'left' : 'right',
+
+              transition:
+                'color 0.3s, transform 0.3s',
+
+              whiteSpace: 'normal',
+
+              lineHeight: 1.35,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = TEAL
-              e.currentTarget.style.transform = 'translateX(-6px)'
+              e.currentTarget.style.transform =
+                'translateX(-6px)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = 'rgba(255,255,255,0.75)'
-              e.currentTarget.style.transform = 'translateX(0)'
+              e.currentTarget.style.color = isMobile
+                ? 'rgba(255,255,255,0.86)'
+                : 'rgba(255,255,255,0.75)'
+
+              e.currentTarget.style.transform =
+                'translateX(0)'
             }}
           >
+            {/* Track number */}
+            {isMobile && (
+              <span
+                style={{
+                  display: 'block',
+                  fontFamily: "'Oswald', sans-serif",
+                  fontSize: '9px',
+                  letterSpacing: '2px',
+                  opacity: 0.52,
+                  marginBottom: '4px',
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            )}
+
             {item.label}
           </button>
         ))}
       </nav>
 
-      {/* Center title */}
+      {/* =========================================================
+          ALBUM TITLE
+          
+          Desktop:
+          Centered.
+
+          Mobile:
+          Restricted to the photograph side so it NEVER
+          competes with the track listing.
+      ========================================================= */}
       <div
         style={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          textAlign: 'center',
+
+          top: isMobile ? '72%' : '50%',
+
+          left: isMobile ? '56px' : '50%',
+
+          transform: isMobile
+            ? 'translateY(-50%)'
+            : 'translate(-50%, -50%)',
+
+          textAlign: isMobile ? 'left' : 'center',
+
           zIndex: 4,
+
           pointerEvents: 'none',
-          width: '100%',
-          padding: isMobile ? '0 60px' : '0 120px',
+
+          width: isMobile ? '54%' : '100%',
+
+          padding: isMobile ? '0' : '0 120px',
         }}
       >
         <h1
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: isMobile ? '38px' : '88px',
-            lineHeight: 1,
-            letterSpacing: isMobile ? '1px' : '3px',
+
+            fontSize: isMobile
+              ? 'clamp(32px, 10vw, 46px)'
+              : '88px',
+
+            lineHeight: 0.92,
+
+            letterSpacing: isMobile ? '0px' : '3px',
+
             textTransform: 'uppercase',
+
             color: '#fff',
-            textShadow: '0 4px 24px rgba(0,0,0,0.6)',
+
+            textShadow: isMobile
+              ? '0 3px 16px rgba(0,0,0,0.65)'
+              : '0 4px 24px rgba(0,0,0,0.6)',
+
+            margin: 0,
           }}
         >
           Looking Up
         </h1>
+
         <h1
           style={{
             fontFamily: "'Oswald', sans-serif",
             fontWeight: 700,
-            fontSize: isMobile ? '38px' : '88px',
-            lineHeight: 1,
-            letterSpacing: isMobile ? '1px' : '3px',
+
+            fontSize: isMobile
+              ? 'clamp(32px, 10vw, 46px)'
+              : '88px',
+
+            lineHeight: 0.92,
+
+            letterSpacing: isMobile ? '0px' : '3px',
+
             textTransform: 'uppercase',
+
             color: TEAL,
-            textShadow: '0 4px 24px rgba(0,0,0,0.6)',
-            marginTop: '4px',
+
+            textShadow: isMobile
+              ? '0 3px 16px rgba(0,0,0,0.65)'
+              : '0 4px 24px rgba(0,0,0,0.6)',
+
+            margin: '4px 0 0 0',
           }}
         >
           in Bombay
         </h1>
       </div>
 
-      {/* Slide indicators */}
+      {/* =========================================================
+          SLIDE INDICATORS
+      ========================================================= */}
       <div
         style={{
           position: 'absolute',
@@ -268,7 +423,10 @@ export function CoverPage() {
             style={{
               width: i === current ? '32px' : '10px',
               height: '4px',
-              background: i === current ? TEAL : 'rgba(255,255,255,0.4)',
+              background:
+                i === current
+                  ? TEAL
+                  : 'rgba(255,255,255,0.45)',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.4s ease',
@@ -278,74 +436,127 @@ export function CoverPage() {
         ))}
       </div>
 
-      {/* Arrow controls */}
+      {/* =========================================================
+          PREVIOUS
+      ========================================================= */}
       <button
         onClick={prev}
         aria-label="Previous slide"
         style={{
           position: 'absolute',
-          left: isMobile ? '48px' : '72px',
+
+          left: isMobile ? '52px' : '72px',
+
           top: '50%',
           transform: 'translateY(-50%)',
-          background: 'rgba(0,0,0,0.4)',
-          border: '1px solid rgba(255,255,255,0.2)',
+
+          background: 'rgba(0,0,0,0.28)',
+          border: '1px solid rgba(255,255,255,0.25)',
+
           color: '#fff',
+
           width: isMobile ? '36px' : '44px',
           height: isMobile ? '36px' : '44px',
+
           borderRadius: '50%',
+
           cursor: 'pointer',
           fontSize: '18px',
+
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+
           zIndex: 6,
+
           transition: 'background 0.3s',
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0,142,138,0.6)')}
-        onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(0,0,0,0.4)')}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background =
+            'rgba(0,142,138,0.6)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background =
+            'rgba(0,0,0,0.28)'
+        }}
       >
         ‹
       </button>
+
+      {/* =========================================================
+          NEXT
+          
+          On mobile it stays inside the photograph area,
+          rather than sitting underneath the track listing.
+      ========================================================= */}
       <button
         onClick={next}
         aria-label="Next slide"
         style={{
           position: 'absolute',
-          right: isMobile ? '212px' : '360px',
+
+          right: isMobile
+            ? 'calc(38% + 12px)'
+            : '360px',
+
           top: '50%',
           transform: 'translateY(-50%)',
-          background: 'rgba(0,0,0,0.4)',
-          border: '1px solid rgba(255,255,255,0.2)',
+
+          background: 'rgba(0,0,0,0.28)',
+          border: '1px solid rgba(255,255,255,0.25)',
+
           color: '#fff',
+
           width: isMobile ? '36px' : '44px',
           height: isMobile ? '36px' : '44px',
+
           borderRadius: '50%',
+
           cursor: 'pointer',
           fontSize: '18px',
+
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+
           zIndex: 6,
+
           transition: 'background 0.3s',
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0,142,138,0.6)')}
-        onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(0,0,0,0.4)')}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background =
+            'rgba(0,142,138,0.6)'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background =
+            'rgba(0,0,0,0.28)'
+        }}
       >
         ›
       </button>
 
-      {/* Slide caption */}
+      {/* =========================================================
+          SLIDE CAPTION
+      ========================================================= */}
       <div
         style={{
           position: 'absolute',
+
           bottom: isMobile ? '50px' : '72px',
+
           left: isMobile ? '56px' : '80px',
+
           fontFamily: "'Oswald', sans-serif",
           fontWeight: 300,
-          fontSize: isMobile ? '11px' : '13px',
+
+          fontSize: isMobile ? '10px' : '13px',
+
           letterSpacing: '4px',
+
           textTransform: 'uppercase',
+
           color: 'rgba(255,255,255,0.6)',
+
           zIndex: 5,
         }}
       >
