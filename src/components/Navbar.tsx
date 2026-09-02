@@ -8,18 +8,30 @@ const NAV_LINKS = [
   { label: 'Walks & Field Notes', href: '#walks' },
 ]
 
+const MENU_IMAGES = [
+  '/ballard-estate.png',
+  '/Colaba.png',
+  '/Looking up Sea.png',
+  '/ballard-estate.png',
+  '/Looking up Sea.png',
+]
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight - 80)
+    const onScroll = () =>
+      setScrolled(window.scrollY > window.innerHeight - 80)
+
     window.addEventListener('scroll', onScroll, { passive: true })
+
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const handleNav = (href: string) => {
     setMenuOpen(false)
+
     const el = document.querySelector(href)
 
     if (el) {
@@ -40,6 +52,7 @@ export function Navbar() {
           className="navbar-logo"
           onClick={() => {
             setMenuOpen(false)
+
             window.scrollTo({
               top: 0,
               behavior: 'smooth',
@@ -54,6 +67,7 @@ export function Navbar() {
           Daniel Sequeira
         </button>
 
+        {/* Desktop navigation */}
         <ul className="nav-links">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
@@ -76,10 +90,12 @@ export function Navbar() {
           </li>
         </ul>
 
+        {/* Mobile hamburger */}
         <button
           className="nav-hamburger"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
           <span
             style={{
@@ -105,25 +121,47 @@ export function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile scrapbook menu */}
       {menuOpen && (
         <div className="mobile-menu">
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              className="mobile-nav-link"
-              onClick={() => handleNav(link.href)}
-            >
-              {link.label}
-            </button>
-          ))}
+          <div className="mobile-menu-inner">
 
-          <button
-            className="nav-cta"
-            onClick={() => handleNav('#walks')}
-            style={{ marginTop: '8px' }}
-          >
-            Book a Walk
-          </button>
+            {NAV_LINKS.map((link, index) => (
+              <button
+                key={link.label}
+                className={`mobile-track mobile-track-${index + 1}`}
+                onClick={() => handleNav(link.href)}
+              >
+                <div className="polaroid">
+
+                  <div className="polaroid-image">
+                    <img
+                      src={MENU_IMAGES[index]}
+                      alt=""
+                    />
+                  </div>
+
+                  <div className="polaroid-caption">
+                    {link.label}
+                  </div>
+
+                  <span className="track-arrow">
+                    →
+                  </span>
+
+                </div>
+              </button>
+            ))}
+
+            {/* Book a Walk remains separate */}
+            <button
+              className="nav-cta mobile-book"
+              onClick={() => handleNav('#walks')}
+            >
+              Book a Walk
+            </button>
+
+          </div>
         </div>
       )}
     </>
