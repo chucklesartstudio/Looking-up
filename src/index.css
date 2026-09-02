@@ -1553,46 +1553,72 @@ select {
   .portraits-grid {
     display: grid !important;
 
-    /* Two vertical rows */
+    /*
+      IMPORTANT:
+      Remove the desktop column definition so the
+      horizontal filmstrip can control the tile width.
+    */
+    grid-template-columns: none !important;
+
+    /* Exactly two rows */
     grid-template-rows: repeat(2, auto) !important;
 
-    /* Two-column-width filmstrip that scrolls horizontally */
-    grid-auto-flow: column;
+    /*
+      Fill DOWN first:
+      1  3  5
+      2  4  6
+    */
+    grid-auto-flow: column !important;
 
-    /* One large tile + part of the next */
-    grid-auto-columns: 74vw;
+    /*
+      Large tiles:
+      roughly one full tile + part of the next.
+    */
+    grid-auto-columns: 74vw !important;
 
     gap: 24px 18px !important;
 
     width: 100% !important;
     max-width: none !important;
 
-    overflow-x: auto;
-    overflow-y: hidden;
-
-    padding:
-      8px
-      0
-      18px;
+    /*
+      Horizontal swipe area
+    */
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
 
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
 
+    /*
+      Keep the scrollbar subtle
+    */
     scrollbar-width: thin;
 
+    /*
+      Prevent the grid itself from forcing
+      the page wider than the viewport.
+    */
     min-width: 0;
   }
 
+
+  /* Each tile fills its large grid cell */
+
   .portraits-grid > * {
     width: 100% !important;
-    min-width: 0;
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
 
   .portraits-grid .polaroid {
     width: 100% !important;
-    min-width: 0;
-    max-width: none;
+    min-width: 0 !important;
+    max-width: none !important;
   }
+
+
+  /* Keep the photographs large */
 
   .portraits-grid .polaroid-inner {
     width: 100%;
@@ -1604,7 +1630,8 @@ select {
     height: 100%;
   }
 
-  /* Keep flipped content readable */
+
+  /* Readable description on the reverse */
 
   .portraits-grid .polaroid-back {
     padding: 24px 20px;
@@ -1630,10 +1657,11 @@ select {
 
   .portraits-grid {
     /*
-      Still one large tile + partial next tile,
-      but slightly more conservative on narrow phones.
+      Slightly larger on narrow phones.
+      Gives one dominant tile and a clear glimpse
+      of the next tile.
     */
-    grid-auto-columns: 76vw;
+    grid-auto-columns: 76vw !important;
 
     gap: 20px 14px !important;
 
