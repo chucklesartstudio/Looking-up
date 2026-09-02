@@ -1544,3 +1544,113 @@ select {
   }
 
 }
+/* =========================================================
+   400001 & CO. — MOBILE HORIZONTAL FILMSTRIP
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .portraits-grid {
+    display: grid !important;
+
+    /* Two vertical rows */
+    grid-template-rows: repeat(2, auto) !important;
+
+    /* Two-column-width filmstrip that scrolls horizontally */
+    grid-auto-flow: column;
+
+    /* One large tile + part of the next */
+    grid-auto-columns: 74vw;
+
+    gap: 24px 18px !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding:
+      8px
+      0
+      18px;
+
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+
+    min-width: 0;
+  }
+
+  .portraits-grid > * {
+    width: 100% !important;
+    min-width: 0;
+  }
+
+  .portraits-grid .polaroid {
+    width: 100% !important;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .portraits-grid .polaroid-inner {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .portraits-grid .polaroid-face {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Keep flipped content readable */
+
+  .portraits-grid .polaroid-back {
+    padding: 24px 20px;
+  }
+
+  .portraits-grid .polaroid-back .label {
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .portraits-grid .polaroid-back .italic-note {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .portraits-grid {
+    /*
+      Still one large tile + partial next tile,
+      but slightly more conservative on narrow phones.
+    */
+    grid-auto-columns: 76vw;
+
+    gap: 20px 14px !important;
+
+    padding-bottom: 16px;
+  }
+
+  .portraits-grid .polaroid-back {
+    padding: 20px 16px;
+  }
+
+  .portraits-grid .polaroid-back .label {
+    font-size: 9px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+  .portraits-grid .polaroid-back .italic-note {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+}
