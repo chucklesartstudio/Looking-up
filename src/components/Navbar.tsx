@@ -1,19 +1,31 @@
 import { useState, useEffect } from 'react'
 
 const NAV_LINKS = [
-  { label: 'Looking Up in Ballard Estate', href: '#two-walks' },
-  { label: 'Looking Up in Colaba', href: '#two-walks' },
-  { label: 'Looking Out at Sea', href: '#walks' },
-  { label: '400001 and Co.', href: '#400001' },
-  { label: 'Walks & Field Notes', href: '#walks' },
-]
-
-const MENU_IMAGES = [
-  '/ballard-estate.png',
-  '/Colaba.png',
-  '/Looking up Sea.png',
-  '/ballard-estate.png',
-  '/Looking up Sea.png',
+  {
+    label: 'Looking Up in Ballard Estate',
+    href: '#two-walks',
+    image: '/ballard-estate.png',
+  },
+  {
+    label: 'Looking Up in Colaba',
+    href: '#two-walks',
+    image: '/Colaba.png',
+  },
+  {
+    label: 'Looking Out at Sea',
+    href: '#walks',
+    image: '/Looking%20up%20Sea.png',
+  },
+  {
+    label: '400001 and Co.',
+    href: '#400001',
+    image: '/400001.png',
+  },
+  {
+    label: 'Walks & Field Notes',
+    href: '#walks',
+    image: '/walks-field-notes.png',
+  },
 ]
 
 export function Navbar() {
@@ -26,7 +38,8 @@ export function Navbar() {
 
     window.addEventListener('scroll', onScroll, { passive: true })
 
-    return () => window.removeEventListener('scroll', onScroll)
+    return () =>
+      window.removeEventListener('scroll', onScroll)
   }, [])
 
   const handleNav = (href: string) => {
@@ -36,7 +49,9 @@ export function Navbar() {
 
     if (el) {
       const top =
-        el.getBoundingClientRect().top + window.scrollY - 70
+        el.getBoundingClientRect().top +
+        window.scrollY -
+        70
 
       window.scrollTo({
         top,
@@ -47,7 +62,11 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={`navbar ${scrolled ? 'scrolled' : 'transparent'}`}>
+      <nav
+        className={`navbar ${
+          scrolled ? 'scrolled' : 'transparent'
+        }`}
+      >
         <button
           className="navbar-logo"
           onClick={() => {
@@ -67,7 +86,6 @@ export function Navbar() {
           Daniel Sequeira
         </button>
 
-        {/* Desktop navigation */}
         <ul className="nav-links">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
@@ -90,12 +108,10 @@ export function Navbar() {
           </li>
         </ul>
 
-        {/* Mobile hamburger */}
         <button
           className="nav-hamburger"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
-          aria-expanded={menuOpen}
         >
           <span
             style={{
@@ -121,47 +137,35 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile scrapbook menu */}
       {menuOpen && (
         <div className="mobile-menu">
-          <div className="mobile-menu-inner">
-
+          <div className="polaroid-grid">
             {NAV_LINKS.map((link, index) => (
               <button
                 key={link.label}
-                className={`mobile-track mobile-track-${index + 1}`}
+                className={`polaroid polaroid-${index + 1}`}
                 onClick={() => handleNav(link.href)}
               >
-                <div className="polaroid">
-
-                  <div className="polaroid-image">
-                    <img
-                      src={MENU_IMAGES[index]}
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="polaroid-caption">
-                    {link.label}
-                  </div>
-
-                  <span className="track-arrow">
-                    →
-                  </span>
-
+                <div className="polaroid-image">
+                  <img
+                    src={link.image}
+                    alt={link.label}
+                  />
                 </div>
+
+                <span className="polaroid-caption">
+                  {link.label}
+                </span>
               </button>
             ))}
-
-            {/* Book a Walk remains separate */}
-            <button
-              className="nav-cta mobile-book"
-              onClick={() => handleNav('#walks')}
-            >
-              Book a Walk
-            </button>
-
           </div>
+
+          <button
+            className="nav-cta menu-book-button"
+            onClick={() => handleNav('#walks')}
+          >
+            Book a Walk
+          </button>
         </div>
       )}
     </>
