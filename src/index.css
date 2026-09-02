@@ -1242,3 +1242,50 @@ body {
   }
 
 }
+/* =========================================
+   FIELD NOTEBOOK — MOBILE ONLY
+   ========================================= */
+
+@media (max-width: 768px) {
+  .field-notebook-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: stretch !important;
+    margin-bottom: 90px !important;
+  }
+
+  .field-notebook-grid > div {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  /* Text first */
+  .field-notebook-grid > div[style*='text'] {
+    order: 1;
+    padding: 20px 24px 35px !important;
+  }
+
+  /* Image second */
+  .field-notebook-grid > div[style*='image'] {
+    order: 2;
+    padding: 0 24px !important;
+  }
+
+  .field-notebook-grid .italic-note {
+    font-size: 24px !important;
+    line-height: 1.55 !important;
+  }
+
+  .field-notebook-grid .label-teal {
+    font-size: 11px !important;
+    letter-spacing: 0.25em !important;
+    margin-bottom: 22px !important;
+  }
+
+  .field-notebook-grid img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
