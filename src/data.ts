@@ -106,25 +106,25 @@ export const TIMELINE_ITEMS: TimelineItem[] = [
   {
     year: '1938',
     title: 'The Art Deco Pump Opens',
-    image: IMAGES.karfule1935,
+    image: '/Looking-up/karfule3.png',
     text: 'Karfule opens for business on October 3, 1938, on Sprott Road in Ballard Estate. Built by Gabriel Sequeira and designed by architect Gajanan B. Mhatre through Architecture Studio, the station takes its distinctive Art Deco form: an octagonal central kiosk beneath a cantilevered cement canopy.',
   },
   {
     year: '1938',
     title: 'Built for a Growing Bombay',
-    image: IMAGES.karfule1960,
+    image: '/Looking-up/karfule2.png',
     text: 'The pump arrives in the middle of Ballard Estate, one of Bombay’s great commercial districts, close to the docks and surrounded by the city’s shipping and trading life. Its streamlined architecture belongs to a Bombay that is becoming increasingly modern.',
   },
   {
     year: '1978',
     title: 'From Caltex to HPCL',
-    image: IMAGES.karfuleToday,
+    image: '/Looking-up/karfule1.png',
     text: 'Fuel was originally supplied by Caltex. In 1978, Hindustan Petroleum took over the supply. The pump continued operating through the change, retaining much of its original Art Deco character.',
   },
   {
     year: 'Today',
     title: 'Where the Ballard Estate Walk Ends',
-    image: IMAGES.karfuleToday,
+    image: '/Looking-up/karfule4.png',
     text: 'Karfule is still operating and remains a family-run petrol pump. For Daniel, it is also the final point of the Ballard Estate walk — where the buildings, streets and stories of 400001 eventually lead back to the pump.',
   },
 ]
