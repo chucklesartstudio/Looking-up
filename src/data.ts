@@ -9,9 +9,10 @@ export const IMAGES = {
   notebookStreet: 'https://images.pexels.com/photos/16308802/pexels-photo-16308802.jpeg?auto=compress&cs=tinysrgb&w=940',
   notebookVendor: 'https://images.pexels.com/photos/16308804/pexels-photo-16308804.jpeg?auto=compress&cs=tinysrgb&w=940',
   notebookMarket: 'https://images.pexels.com/photos/16005634/pexels-photo-16005634.jpeg?auto=compress&cs=tinysrgb&w=940',
-  karfule1935: 'https://images.pexels.com/photos/8402401/pexels-photo-8402401.jpeg?auto=compress&cs=tinysrgb&w=940',
-  karfule1960: 'https://images.pexels.com/photos/16005639/pexels-photo-16005639.jpeg?auto=compress&cs=tinysrgb&w=940',
-  karfuleToday: 'https://images.pexels.com/photos/16376256/pexels-photo-16376256.jpeg?auto=compress&cs=tinysrgb&w=940',
+  karfule1935: `${import.meta.env.BASE_URL}karfule3.png`,
+  karfule1960: `${import.meta.env.BASE_URL}karfule2.png`,
+  karfule1978: `${import.meta.env.BASE_URL}karfule1.png`,
+  karfuleToday: `${import.meta.env.BASE_URL}karfule4.png`,
   closingSky: 'https://images.pexels.com/photos/5802044/pexels-photo-5802044.jpeg?auto=compress&cs=tinysrgb&w=940',
   // 400001 portraits
   sewingMan: 'https://images.pexels.com/photos/36799021/pexels-photo-36799021.jpeg?auto=compress&cs=tinysrgb&w=940',
