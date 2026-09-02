@@ -8,20 +8,61 @@ export function KarfuleStory() {
     <section
       ref={ref}
       className="section"
-      style={{ background: 'linear-gradient(170deg, var(--cream) 0%, var(--terra-pale) 180%)' }}
+      style={{
+        background:
+          'linear-gradient(170deg, var(--cream) 0%, var(--terra-pale) 180%)',
+      }}
     >
       <div className="container-narrow">
+
+        {/* Section label */}
         <div
           className={`label-teal reveal ${inView ? 'in-view' : ''}`}
           style={{
             textAlign: 'center',
-            marginBottom: 'var(--space-lg)',
+            marginBottom: '18px',
           }}
         >
-          The Origin Point
+          THE ORIGIN POINT
         </div>
 
+        {/* Main title */}
+        <h2
+          className={`heading-serif reveal reveal-delay-1 ${
+            inView ? 'in-view' : ''
+          }`}
+          style={{
+            textAlign: 'center',
+            fontSize: 'clamp(42px, 7vw, 72px)',
+            lineHeight: 0.95,
+            color: 'var(--ink)',
+            marginBottom: '12px',
+          }}
+        >
+          Karfule Petrol Pump
+        </h2>
+
+        {/* Subtitle */}
+        <p
+          className={`reveal reveal-delay-2 ${
+            inView ? 'in-view' : ''
+          }`}
+          style={{
+            textAlign: 'center',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '12px',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--terra)',
+            marginBottom: 'var(--space-xl)',
+          }}
+        >
+          Ballard Estate · Since 1938
+        </p>
+
         <div style={{ position: 'relative' }}>
+
+          {/* Timeline line */}
           <div
             style={{
               position: 'absolute',
@@ -29,7 +70,8 @@ export function KarfuleStory() {
               top: '40px',
               bottom: '40px',
               width: '2px',
-              background: 'linear-gradient(180deg, var(--terra) 0%, var(--teal) 50%, var(--mustard) 100%)',
+              background:
+                'linear-gradient(180deg, var(--terra) 0%, var(--teal) 50%, var(--mustard) 100%)',
               opacity: 0.5,
             }}
           />
@@ -37,18 +79,26 @@ export function KarfuleStory() {
           {TIMELINE_ITEMS.map((item, i) => (
             <div
               key={i}
-              className={`reveal reveal-delay-${i + 1} ${inView ? 'in-view' : ''}`}
+              className={`reveal reveal-delay-${Math.min(
+                i + 1,
+                4
+              )} ${inView ? 'in-view' : ''}`}
               style={{
                 display: 'flex',
                 gap: 'var(--space-md)',
-                marginBottom: 'var(--space-xl)',
+                marginBottom:
+                  i === TIMELINE_ITEMS.length - 1
+                    ? '0'
+                    : 'var(--space-xl)',
                 alignItems: 'flex-start',
               }}
             >
+
+              {/* Year */}
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '18px',
+                  fontSize: i === 0 ? '26px' : '18px',
                   fontWeight: 700,
                   color: 'var(--terra)',
                   minWidth: '60px',
@@ -60,6 +110,7 @@ export function KarfuleStory() {
                 {item.year}
               </div>
 
+              {/* Timeline dot */}
               <div
                 style={{
                   width: '14px',
@@ -75,7 +126,10 @@ export function KarfuleStory() {
                 }}
               />
 
+              {/* Content */}
               <div style={{ flex: 1 }}>
+
+                {/* Image */}
                 <div
                   style={{
                     width: '100%',
@@ -93,15 +147,30 @@ export function KarfuleStory() {
                     }}
                   />
                 </div>
+
+                {/* Point title */}
                 <h3
                   className="heading-serif"
-                  style={{ fontSize: '28px', marginBottom: '12px', color: 'var(--ink)' }}
+                  style={{
+                    fontSize: '28px',
+                    marginBottom: '12px',
+                    color: 'var(--ink)',
+                  }}
                 >
                   {item.title}
                 </h3>
-                <p className="italic-note" style={{ fontSize: '18px', color: 'var(--ink-light)' }}>
+
+                {/* Point text */}
+                <p
+                  className="italic-note"
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--ink-light)',
+                  }}
+                >
                   {item.text}
                 </p>
+
               </div>
             </div>
           ))}
