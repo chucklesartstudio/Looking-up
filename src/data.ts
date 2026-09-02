@@ -104,25 +104,30 @@ export interface TimelineItem {
 
 export const TIMELINE_ITEMS: TimelineItem[] = [
   {
-    year: '1935',
-    title: 'The Art Deco Pump is Born',
+    year: '1938',
+    title: 'The Art Deco Pump Opens',
     image: IMAGES.karfule1935,
-    text: 'Gabriel Sequeira, a young Goan entrepreneur, enlists architect G.B. Mhatre to design a fuel station on Sprott Road. The streamline moderne canopy echoes the ships at the nearby docks. Construction finishes in five months.',
+    text: 'Karfule opens for business on October 3, 1938, on Sprott Road in Ballard Estate. Built by Gabriel Sequeira and designed by architect Gajanan B. Mhatre through Architecture Studio, the station takes its distinctive Art Deco form: an octagonal central kiosk beneath a cantilevered cement canopy.',
   },
   {
-    year: '1960s',
-    title: 'Family & Neighbourhood',
+    year: '1938',
+    title: 'Built for a Growing Bombay',
     image: IMAGES.karfule1960,
-    text: 'Grandfather runs the pump. The same men who filled their Ambassadors here walked down to the docks. The corner became Ballard Estate\'s unofficial meeting point — a place where the city\'s story was told in petrol, tea, and gossip.',
+    text: 'The pump arrives in the middle of Ballard Estate, one of Bombay’s great commercial districts, close to the docks and surrounded by the city’s shipping and trading life. Its streamlined architecture belongs to a Bombay that is becoming increasingly modern.',
+  },
+  {
+    year: '1978',
+    title: 'From Caltex to HPCL',
+    image: IMAGES.karfuleToday,
+    text: 'Fuel was originally supplied by Caltex. In 1978, Hindustan Petroleum took over the supply. The pump continued operating through the change, retaining much of its original Art Deco character.',
   },
   {
     year: 'Today',
-    title: 'Where Every Walk Begins',
+    title: 'Where the Ballard Estate Walk Ends',
     image: IMAGES.karfuleToday,
-    text: 'The pump still stands, maintained by Daniel and his father Kevin. Every "Looking Up" walk starts here because this is where Daniel\'s story and Bombay\'s story meet. The terrazzo floor still has its star. The clock tower still keeps time.',
+    text: 'Karfule is still operating and remains a family-run petrol pump. For Daniel, it is also the final point of the Ballard Estate walk — where the buildings, streets and stories of 400001 eventually lead back to the pump.',
   },
 ]
-
 export interface PortraitEntry {
   name: string
   location: string
