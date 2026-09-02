@@ -101,9 +101,9 @@ export function CoverPage() {
             inset: 0,
             opacity: i === current ? 1 : 0,
             transition:
-              'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+              'opacity 2.2s ease-in-out, transform 3s ease-out',
             transform:
-              i === current ? 'scale(1)' : 'scale(1.04)',
+              i === current ? 'scale(1)' : 'scale(1.02)',
           }}
         >
           <img
