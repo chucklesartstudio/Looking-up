@@ -1289,30 +1289,130 @@ body {
     height: auto !important;
   }
 }
-/* =========================================
-   TWO WALKS — MOBILE CHECKPOINTS
-   ========================================= */
+/* =========================================================
+   TWO WALKS — DESKTOP / MOBILE INTERACTION
+   ========================================================= */
+
+/* Desktop */
+.two-walks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.walk-card-wrapper {
+  min-width: 0;
+}
+
+.walk-card {
+  width: 100%;
+  border: none;
+  border-top: 4px solid var(--terra);
+  padding: var(--space-lg) var(--space-md);
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out);
+  text-align: center;
+  font-family: var(--font-serif);
+  box-shadow: var(--shadow-card);
+}
+
+.walk-card-wrapper:nth-child(2) .walk-card {
+  border-top-color: var(--teal);
+}
+
+.mobile-walk-content {
+  display: none;
+}
+
+.desktop-walk-content {
+  display: block;
+}
+
+.desktop-walk-content .checkpoints-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 768px) {
+
   .two-walks-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 0;
   }
 
-  .checkpoints-grid {
+  .walk-card-wrapper {
+    width: 100%;
+  }
+
+  .walk-card {
+    width: 100%;
+    padding: 38px 22px;
+  }
+
+  /*
+     Hide the desktop version.
+     The gallery will instead appear immediately
+     underneath whichever card was clicked.
+  */
+  .desktop-walk-content {
+    display: none;
+  }
+
+  .mobile-walk-content {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    animation: fadeIn 0.45s var(--ease-out);
+  }
+
+  .mobile-walk-content .checkpoints-grid {
+    display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 14px !important;
   }
 
-  .checkpoints-grid img {
+  .mobile-walk-content .checkpoints-grid img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
   }
 
-  .checkpoints-grid p {
+  .mobile-walk-content .checkpoints-grid p {
     font-size: 13px !important;
     line-height: 1.45 !important;
     margin-top: 7px !important;
+  }
+}
+
+
+/* Smaller phones */
+
+@media (max-width: 480px) {
+
+  .two-walks-grid {
+    gap: 16px;
+  }
+
+  .walk-card {
+    padding: 34px 18px;
+  }
+
+  .mobile-walk-content {
+    margin-top: 16px;
+  }
+
+  .mobile-walk-content .checkpoints-grid {
+    gap: 12px !important;
+  }
+
+  .mobile-walk-content .checkpoints-grid p {
+    font-size: 12px !important;
   }
 }
