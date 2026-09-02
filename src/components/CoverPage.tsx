@@ -315,7 +315,8 @@ export function CoverPage() {
         style={{
           position: 'absolute',
 
-          top: isMobile ? '72%' : '50%',
+          /* CHANGED: mobile title is now vertically centered */
+          top: '50%',
 
           left: isMobile ? '56px' : '50%',
 
