@@ -418,11 +418,13 @@ body {
 }
 
 .container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .container-narrow {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -1209,44 +1211,12 @@ body {
 }
 
 
-/* ─── Existing responsive sections ────────────── */
-
-@media (max-width: 768px) {
-
-  .field-notebook-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .portraits-grid {
-    grid-template-columns:
-      repeat(2, 1fr) !important;
-  }
-
-  .two-walks-grid {
-    grid-template-columns:
-      1fr !important;
-  }
-
-  .checkpoints-grid {
-    grid-template-columns:
-      repeat(2, 1fr) !important;
-  }
-
-}
-
-@media (max-width: 480px) {
-
-  .portraits-grid {
-    grid-template-columns:
-      1fr !important;
-  }
-
-}
 /* =========================================
    FIELD NOTEBOOK — MOBILE ONLY
    ========================================= */
 
 @media (max-width: 768px) {
+
   .field-notebook-grid {
     display: flex !important;
     flex-direction: column !important;
@@ -1289,36 +1259,67 @@ body {
     height: auto !important;
   }
 }
+
+
 /* =========================================================
-   TWO WALKS — DESKTOP / MOBILE INTERACTION
+   TWO WALKS — DESKTOP / MOBILE
    ========================================================= */
 
 /* Desktop */
+
 .two-walks-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
+  width: 100%;
+  min-width: 0;
 }
 
 .walk-card-wrapper {
+  width: 100%;
   min-width: 0;
 }
 
 .walk-card {
+  display: block;
+
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  background: var(--cream);
+
   border: none;
   border-top: 4px solid var(--terra);
-  padding: var(--space-lg) var(--space-md);
+
+  padding:
+    var(--space-lg)
+    var(--space-md);
+
   cursor: pointer;
-  transition: all 0.4s var(--ease-out);
+
+  transition:
+    background 0.4s var(--ease-out),
+    color 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
+
   text-align: center;
+
   font-family: var(--font-serif);
+
   box-shadow: var(--shadow-card);
 }
 
 .walk-card-wrapper:nth-child(2) .walk-card {
   border-top-color: var(--teal);
+}
+
+.walk-card:hover {
+  box-shadow: var(--shadow-hover);
+
+  transform: translateY(-4px);
 }
 
 .mobile-walk-content {
@@ -1327,72 +1328,138 @@ body {
 
 .desktop-walk-content {
   display: block;
+
+  width: 100%;
+  min-width: 0;
 }
 
 .desktop-walk-content .checkpoints-grid {
-  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  min-width: 0;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE TWO WALKS
    ========================================================= */
 
 @media (max-width: 768px) {
 
   .two-walks-grid {
     display: flex;
+
     flex-direction: column;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-width: 0;
+
     gap: 18px;
+
     margin-bottom: 0;
   }
 
   .walk-card-wrapper {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .walk-card {
+    display: block;
+
     width: 100%;
-    padding: 38px 22px;
+    max-width: 100%;
+    min-width: 0;
+
+    padding:
+      38px
+      22px;
   }
 
-  /*
-     Hide the desktop version.
-     The gallery will instead appear immediately
-     underneath whichever card was clicked.
-  */
+
+  /* Hide desktop gallery on mobile */
+
   .desktop-walk-content {
     display: none;
   }
 
+
+  /*
+     The selected gallery appears directly
+     underneath the selected walk card.
+  */
+
   .mobile-walk-content {
     display: block;
+
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
     margin-top: 18px;
-    animation: fadeIn 0.45s var(--ease-out);
+
+    overflow: hidden;
+
+    animation:
+      fadeIn 0.45s var(--ease-out);
   }
+
+
+  /* Two-column mobile gallery */
 
   .mobile-walk-content .checkpoints-grid {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
     gap: 14px !important;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .mobile-walk-content .checkpoints-grid > div {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .mobile-walk-content .checkpoints-grid img {
+    display: block;
+
     width: 100%;
+    max-width: 100%;
+
+    height: auto;
+
     aspect-ratio: 1 / 1;
+
     object-fit: cover;
   }
 
   .mobile-walk-content .checkpoints-grid p {
+    width: 100%;
+    max-width: 100%;
+
     font-size: 13px !important;
+
     line-height: 1.45 !important;
+
     margin-top: 7px !important;
   }
 }
 
 
-/* Smaller phones */
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
 
 @media (max-width: 480px) {
 
@@ -1401,7 +1468,9 @@ body {
   }
 
   .walk-card {
-    padding: 34px 18px;
+    padding:
+      34px
+      18px;
   }
 
   .mobile-walk-content {
@@ -1415,4 +1484,63 @@ body {
   .mobile-walk-content .checkpoints-grid p {
     font-size: 12px !important;
   }
+}
+
+
+/* =========================================================
+   MOBILE WIDTH SAFETY
+   ========================================================= */
+
+/*
+   Prevent any component from accidentally becoming
+   wider than the viewport.
+*/
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+
+/* Keep major layout containers inside the viewport */
+
+@media (max-width: 768px) {
+
+  .section {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container,
+  .container-narrow {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .two-walks-grid,
+  .walk-card-wrapper,
+  .walk-card,
+  .mobile-walk-content,
+  .desktop-walk-content {
+    max-width: 100%;
+    min-width: 0;
+  }
+
 }
