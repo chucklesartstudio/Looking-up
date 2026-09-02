@@ -11,7 +11,7 @@ const NAV_LINKS = [
   {
     label: 'Looking Up in Colaba',
     href: '#two-walks',
-    image: `${BASE}Colaba.png`,
+    image: `${BASE}new-colaba-image.png`,
   },
   {
     label: 'Looking Out at Sea',
