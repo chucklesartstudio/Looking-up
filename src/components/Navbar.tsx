@@ -1,30 +1,32 @@
 import { useState, useEffect } from 'react'
 
+const BASE = import.meta.env.BASE_URL
+
 const NAV_LINKS = [
   {
     label: 'Looking Up in Ballard Estate',
     href: '#two-walks',
-    image: '/ballard-estate.png',
+    image: `${BASE}ballard-estate.png`,
   },
   {
     label: 'Looking Up in Colaba',
     href: '#two-walks',
-    image: '/Colaba.png',
+    image: `${BASE}Colaba.png`,
   },
   {
     label: 'Looking Out at Sea',
     href: '#walks',
-    image: '/Looking%20up%20Sea.png',
+    image: `${BASE}Looking%20up%20Sea.png`,
   },
   {
     label: '400001 and Co.',
     href: '#400001',
-    image: '/400001.png',
+    image: `${BASE}400001.png`,
   },
   {
     label: 'Walks & Field Notes',
     href: '#walks',
-    image: '/walks-field-notes.png',
+    image: `${BASE}walks-field-notes.png`,
   },
 ]
 
