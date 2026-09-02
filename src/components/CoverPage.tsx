@@ -113,9 +113,14 @@ export function CoverPage() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
+
+              // Shift photograph slightly left
+              objectPosition: isMobile ? '58% center' : '55% center',
+
+              // Slightly darker, richer image
               filter: isMobile
-                ? 'contrast(1.06) saturate(1.08) brightness(0.86)'
-                : 'contrast(1.12) saturate(1.12) brightness(0.76)',
+                ? 'contrast(1.06) saturate(1.05) brightness(0.78)'
+                : 'contrast(1.12) saturate(1.08) brightness(0.76)',
             }}
           />
         </div>
@@ -123,14 +128,13 @@ export function CoverPage() {
 
       {/* =========================================================
           IMAGE OVERLAY
-          Much lighter than before.
       ========================================================= */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: isMobile
-            ? 'linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.02) 45%, rgba(0,0,0,0.38) 100%)'
+            ? 'linear-gradient(180deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.06) 45%, rgba(0,0,0,0.42) 100%)'
             : 'linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0.58) 100%)',
           pointerEvents: 'none',
         }}
@@ -138,7 +142,6 @@ export function CoverPage() {
 
       {/* =========================================================
           LEFT TICKER
-          Kept essentially as-is.
       ========================================================= */}
       <div
         style={{
@@ -197,7 +200,7 @@ export function CoverPage() {
 
       {/* =========================================================
           TRACK LISTING
-          
+
           Desktop:
           Existing right-side navigation.
 
@@ -244,6 +247,7 @@ export function CoverPage() {
             style={{
               background: 'none',
               border: 'none',
+
               borderBottom: isMobile
                 ? '1px solid rgba(255,255,255,0.18)'
                 : 'none',
@@ -292,22 +296,6 @@ export function CoverPage() {
                 'translateX(0)'
             }}
           >
-            {/* Track number */}
-            {isMobile && (
-              <span
-                style={{
-                  display: 'block',
-                  fontFamily: "'Oswald', sans-serif",
-                  fontSize: '9px',
-                  letterSpacing: '2px',
-                  opacity: 0.52,
-                  marginBottom: '4px',
-                }}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </span>
-            )}
-
             {item.label}
           </button>
         ))}
@@ -315,7 +303,7 @@ export function CoverPage() {
 
       {/* =========================================================
           ALBUM TITLE
-          
+
           Desktop:
           Centered.
 
@@ -485,7 +473,7 @@ export function CoverPage() {
 
       {/* =========================================================
           NEXT
-          
+
           On mobile it stays inside the photograph area,
           rather than sitting underneath the track listing.
       ========================================================= */}
