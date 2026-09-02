@@ -1,6 +1,15 @@
 import { TIMELINE_ITEMS } from '../data'
 import { useInView } from '../hooks/useInView'
 
+const BASE = import.meta.env.BASE_URL
+
+const KARFULE_IMAGES = [
+  `${BASE}karfule3.png`,
+  `${BASE}karfule2.png`,
+  `${BASE}karfule1.png`,
+  `${BASE}karfule4.png`,
+]
+
 export function KarfuleStory() {
   const [ref, inView] = useInView<HTMLDivElement>()
 
@@ -138,7 +147,7 @@ export function KarfuleStory() {
                   }}
                 >
                   <img
-                    src={item.image}
+                    src={KARFULE_IMAGES[i]}
                     alt={item.title}
                     className="square-img"
                     style={{
