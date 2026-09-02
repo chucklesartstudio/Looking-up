@@ -52,15 +52,10 @@ export function CoverPage() {
     []
   )
 
-  const prev = useCallback(
-    () => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length),
-    []
-  )
-
   useEffect(() => {
     const timer = setInterval(
       () => setCurrent((c) => (c + 1) % SLIDES.length),
-      6000
+      5000
     )
 
     return () => clearInterval(timer)
@@ -217,8 +212,9 @@ export function CoverPage() {
 
           width: isMobile ? '38%' : '340px',
 
+          /* Slightly stronger mobile transparency */
           background: isMobile
-            ? 'linear-gradient(90deg, rgba(18,18,18,0.08) 0%, rgba(18,18,18,0.36) 100%)'
+            ? 'linear-gradient(90deg, rgba(18,18,18,0.22) 0%, rgba(18,18,18,0.52) 100%)'
             : 'rgba(0,0,0,0.5)',
 
           backdropFilter: isMobile
@@ -315,7 +311,7 @@ export function CoverPage() {
         style={{
           position: 'absolute',
 
-          /* CHANGED: mobile title is now vertically centered */
+          // Vertically centered on both desktop and mobile
           top: '50%',
 
           left: isMobile ? '56px' : '50%',
@@ -425,132 +421,7 @@ export function CoverPage() {
         ))}
       </div>
 
-      {/* =========================================================
-          PREVIOUS
-      ========================================================= */}
-      <button
-        onClick={prev}
-        aria-label="Previous slide"
-        style={{
-          position: 'absolute',
-
-          left: isMobile ? '52px' : '72px',
-
-          top: '50%',
-          transform: 'translateY(-50%)',
-
-          background: 'rgba(0,0,0,0.28)',
-          border: '1px solid rgba(255,255,255,0.25)',
-
-          color: '#fff',
-
-          width: isMobile ? '36px' : '44px',
-          height: isMobile ? '36px' : '44px',
-
-          borderRadius: '50%',
-
-          cursor: 'pointer',
-          fontSize: '18px',
-
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-
-          zIndex: 6,
-
-          transition: 'background 0.3s',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background =
-            'rgba(0,142,138,0.6)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background =
-            'rgba(0,0,0,0.28)'
-        }}
-      >
-        ‹
-      </button>
-
-      {/* =========================================================
-          NEXT
-
-          On mobile it stays inside the photograph area,
-          rather than sitting underneath the track listing.
-      ========================================================= */}
-      <button
-        onClick={next}
-        aria-label="Next slide"
-        style={{
-          position: 'absolute',
-
-          right: isMobile
-            ? 'calc(38% + 12px)'
-            : '360px',
-
-          top: '50%',
-          transform: 'translateY(-50%)',
-
-          background: 'rgba(0,0,0,0.28)',
-          border: '1px solid rgba(255,255,255,0.25)',
-
-          color: '#fff',
-
-          width: isMobile ? '36px' : '44px',
-          height: isMobile ? '36px' : '44px',
-
-          borderRadius: '50%',
-
-          cursor: 'pointer',
-          fontSize: '18px',
-
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-
-          zIndex: 6,
-
-          transition: 'background 0.3s',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background =
-            'rgba(0,142,138,0.6)'
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background =
-            'rgba(0,0,0,0.28)'
-        }}
-      >
-        ›
-      </button>
-
-      {/* =========================================================
-          SLIDE CAPTION
-      ========================================================= */}
-      <div
-        style={{
-          position: 'absolute',
-
-          bottom: isMobile ? '50px' : '72px',
-
-          left: isMobile ? '56px' : '80px',
-
-          fontFamily: "'Oswald', sans-serif",
-          fontWeight: 300,
-
-          fontSize: isMobile ? '10px' : '13px',
-
-          letterSpacing: '4px',
-
-          textTransform: 'uppercase',
-
-          color: 'rgba(255,255,255,0.6)',
-
-          zIndex: 5,
-        }}
-      >
-        {SLIDES[current].caption}
-      </div>
+      {/* No previous/next arrows */}
     </section>
   )
 }
