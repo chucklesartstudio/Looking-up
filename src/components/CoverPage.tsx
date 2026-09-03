@@ -79,7 +79,7 @@ export function CoverPage() {
     }
   }, [next])
 
-  cconst scrollToSection = (selector: string) => {
+  const scrollToSection = (selector: string) => {
   const id = selector.startsWith('#')
     ? selector.slice(1)
     : selector
