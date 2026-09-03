@@ -7,17 +7,30 @@ export function FourHundredOne() {
   const [ref, inView] = useInView<HTMLDivElement>()
 
   return (
-    <section ref={ref} className="section" style={{ background: 'linear-gradient(170deg, var(--cream) 0%, var(--cobalt-pale) 200%)' }}>
+    <section
+      id="400001"
+      ref={ref}
+      className="section"
+      style={{
+        background:
+          'linear-gradient(170deg, var(--cream) 0%, var(--cobalt-pale) 200%)',
+      }}
+    >
       <div className="container">
         <div
           className={`label-teal reveal ${inView ? 'in-view' : ''}`}
-          style={{ textAlign: 'center', marginBottom: 'var(--space-sm)' }}
+          style={{
+            textAlign: 'center',
+            marginBottom: 'var(--space-sm)',
+          }}
         >
           Pin Code 400001
         </div>
 
         <h2
-          className={`heading-serif reveal reveal-delay-1 ${inView ? 'in-view' : ''}`}
+          className={`heading-serif reveal reveal-delay-1 ${
+            inView ? 'in-view' : ''
+          }`}
           style={{
             fontSize: '48px',
             textAlign: 'center',
@@ -29,7 +42,9 @@ export function FourHundredOne() {
         </h2>
 
         <div
-          className={`italic-note reveal reveal-delay-2 ${inView ? 'in-view' : ''}`}
+          className={`italic-note reveal reveal-delay-2 ${
+            inView ? 'in-view' : ''
+          }`}
           style={{
             fontSize: '20px',
             maxWidth: '640px',
@@ -39,12 +54,12 @@ export function FourHundredOne() {
             color: 'var(--ink-light)',
           }}
         >
-          Before I started looking up at buildings, I was looking across at shop
-          counters. These are the people who make Colaba feel like it hasn't
-          changed since 1962 — even when everything around them has. They don't
-          have websites. They don't take bookings. Most of them don't even have a
-          signboard. But if you know where to look, they're all here. In pin code
-          400001.
+          Before I started looking up at buildings, I was looking across at
+          shop counters. These are the people who make Colaba feel like it
+          hasn't changed since 1962 — even when everything around them has.
+          They don't have websites. They don't take bookings. Most of them
+          don't even have a signboard. But if you know where to look, they're
+          all here. In pin code 400001.
         </div>
 
         <div
@@ -58,7 +73,10 @@ export function FourHundredOne() {
           {PORTRAITS.map((portrait, i) => (
             <div
               key={i}
-              className={`reveal reveal-delay-${Math.min(i + 1, 5)} ${inView ? 'in-view' : ''}`}
+              className={`reveal reveal-delay-${Math.min(
+                i + 1,
+                5
+              )} ${inView ? 'in-view' : ''}`}
               style={{
                 position: 'relative',
                 aspectRatio: '1 / 1',
@@ -68,15 +86,23 @@ export function FourHundredOne() {
               }}
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(null)}
-              onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+              onClick={() =>
+                setActiveIndex(
+                  activeIndex === i ? null : i
+                )
+              }
             >
               <img
                 src={portrait.image}
                 alt={portrait.name}
                 className="square-img"
                 style={{
-                  filter: activeIndex === i ? 'grayscale(0%) contrast(1) saturate(1.2)' : 'grayscale(100%) contrast(1.15)',
-                  transition: 'filter 0.6s var(--ease-out)',
+                  filter:
+                    activeIndex === i
+                      ? 'grayscale(0%) contrast(1) saturate(1.2)'
+                      : 'grayscale(100%) contrast(1.15)',
+                  transition:
+                    'filter 0.6s var(--ease-out)',
                 }}
               />
 
@@ -87,30 +113,52 @@ export function FourHundredOne() {
                   left: 0,
                   right: 0,
                   background: 'var(--cream)',
-                  padding: 'var(--space-sm) var(--space-md)',
-                  transform: activeIndex === i ? 'translateY(0)' : 'translateY(100%)',
-                  transition: 'transform 0.5s var(--ease-out)',
-                  boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
+                  padding:
+                    'var(--space-sm) var(--space-md)',
+                  transform:
+                    activeIndex === i
+                      ? 'translateY(0)'
+                      : 'translateY(100%)',
+                  transition:
+                    'transform 0.5s var(--ease-out)',
+                  boxShadow:
+                    '0 -4px 20px rgba(0,0,0,0.1)',
                   maxHeight: '70%',
                   overflowY: 'auto',
-                  borderTop: '3px solid var(--terra)',
+                  borderTop:
+                    '3px solid var(--terra)',
                 }}
               >
-                <div className="label-red" style={{ marginBottom: '6px' }}>
+                <div
+                  className="label-red"
+                  style={{
+                    marginBottom: '6px',
+                  }}
+                >
                   {portrait.name}
                 </div>
+
                 <div
                   className="label"
-                  style={{ marginBottom: '10px', fontSize: '9px' }}
+                  style={{
+                    marginBottom: '10px',
+                    fontSize: '9px',
+                  }}
                 >
                   {portrait.location}
                 </div>
+
                 <p
                   className="italic-note"
-                  style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--ink-light)' }}
+                  style={{
+                    fontSize: '15px',
+                    lineHeight: 1.6,
+                    color: 'var(--ink-light)',
+                  }}
                 >
                   {portrait.note}
                 </p>
+
                 {portrait.extraNote && (
                   <p
                     className="italic-note"
@@ -134,7 +182,8 @@ export function FourHundredOne() {
                   left: '12px',
                   right: '12px',
                   transition: 'opacity 0.3s',
-                  opacity: activeIndex === i ? 0 : 1,
+                  opacity:
+                    activeIndex === i ? 0 : 1,
                   pointerEvents: 'none',
                 }}
               >
@@ -143,7 +192,8 @@ export function FourHundredOne() {
                     fontFamily: 'var(--font-mono)',
                     fontSize: '11px',
                     color: 'var(--cream)',
-                    textShadow: '0 1px 4px rgba(0,0,0,0.7)',
+                    textShadow:
+                      '0 1px 4px rgba(0,0,0,0.7)',
                     letterSpacing: '1px',
                   }}
                 >
@@ -155,7 +205,9 @@ export function FourHundredOne() {
         </div>
 
         <div
-          className={`reveal ${inView ? 'in-view' : ''}`}
+          className={`reveal ${
+            inView ? 'in-view' : ''
+          }`}
           style={{
             marginTop: 'var(--space-xl)',
             textAlign: 'center',
@@ -163,13 +215,26 @@ export function FourHundredOne() {
         >
           <p
             className="heading-serif"
-            style={{ fontSize: '26px', marginBottom: 'var(--space-sm)', color: 'var(--teal-deep)' }}
+            style={{
+              fontSize: '26px',
+              marginBottom: 'var(--space-sm)',
+              color: 'var(--teal-deep)',
+            }}
           >
             These are the fixtures.
           </p>
-          <p className="italic-note" style={{ fontSize: '18px', color: 'var(--ink-light)' }}>
-            The building facades get the attention, but these are the foundations.
+
+          <p
+            className="italic-note"
+            style={{
+              fontSize: '18px',
+              color: 'var(--ink-light)',
+            }}
+          >
+            The building facades get the attention, but
+            these are the foundations.
           </p>
+
           <p
             className="italic-note"
             style={{
@@ -178,8 +243,9 @@ export function FourHundredOne() {
               color: 'var(--ink-soft)',
             }}
           >
-            Some of them you'll pass on the walk. Some of them you'll meet
-            without knowing it. But now you know where to look.
+            Some of them you'll pass on the walk. Some of
+            them you'll meet without knowing it. But now you
+            know where to look.
           </p>
         </div>
       </div>
