@@ -16,7 +16,7 @@ const NAV_LINKS = [
   {
     label: 'Looking Out at Sea',
     target: 'sea',
-    image: `${BASE}Looking up Sea.png`,
+    image: `${BASE}sea1.png`,
   },
   {
     label: '400001 and Co.',
