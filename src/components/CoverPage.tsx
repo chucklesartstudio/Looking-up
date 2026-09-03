@@ -286,14 +286,9 @@ export function CoverPage() {
           bottom: 0,
 
           width: isMobile
-            ? '38%'
+            ? '33%'
             : '340px',
 
-          /*
-            IMPORTANT:
-            Keep this gradient on ONE line.
-            A multiline string would break the TypeScript build.
-          */
           background: isMobile
             ? 'linear-gradient(90deg, rgba(18,18,18,0.08) 0%, rgba(18,18,18,0.42) 100%)'
             : 'rgba(0,0,0,0.5)',
@@ -312,17 +307,15 @@ export function CoverPage() {
 
           display: 'flex',
           flexDirection: 'column',
-
           alignItems: 'stretch',
-
           justifyContent: 'center',
 
           paddingRight: isMobile
-            ? '14px'
+            ? '12px'
             : '48px',
 
           paddingLeft: isMobile
-            ? '14px'
+            ? '12px'
             : '0',
 
           zIndex: 5,
