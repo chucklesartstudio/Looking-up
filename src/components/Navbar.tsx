@@ -16,7 +16,7 @@ const NAV_LINKS = [
   {
     label: 'Looking Out at Sea',
     target: 'sea',
-    image: `${BASE}Looking-up-Sea.png`,
+    image: `${BASE}Looking%20up%20Sea.png`,
   },
   {
     label: '400001 and Co.',
@@ -25,7 +25,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Walks & Field Notes',
-    target: 'field-notes',
+    target: 'archive',
     image: `${BASE}walks-field-notes.png`,
   },
 ]
@@ -65,10 +65,6 @@ export function Navbar() {
   const handleNav = (target: string) => {
     setMenuOpen(false)
 
-    /*
-      Ballard, Colaba and Sea all live
-      inside the Two Walks section.
-    */
     if (
       target === 'ballard' ||
       target === 'colaba' ||
@@ -83,6 +79,15 @@ export function Navbar() {
       )
 
       scrollToSection('two-walks')
+      return
+    }
+
+    if (target === 'archive') {
+      window.dispatchEvent(
+        new CustomEvent('looking-up:open-archive')
+      )
+
+      scrollToSection('walks')
       return
     }
 
