@@ -15,7 +15,7 @@ const NAV_LINKS = [
   },
   {
     label: 'Looking Out at Sea',
-    target: 'walks',
+    target: 'sea',
     image: `${BASE}Looking-up-Sea.png`,
   },
   {
@@ -66,13 +66,13 @@ export function Navbar() {
     setMenuOpen(false)
 
     /*
-      Ballard and Colaba:
-      Tell TwoWalksOneLens which walk to open,
-      then scroll to the Two Walks section.
+      Ballard, Colaba and Sea all live
+      inside the Two Walks section.
     */
     if (
       target === 'ballard' ||
-      target === 'colaba'
+      target === 'colaba' ||
+      target === 'sea'
     ) {
       window.dispatchEvent(
         new CustomEvent('looking-up:open-walk', {
@@ -86,10 +86,6 @@ export function Navbar() {
       return
     }
 
-    /*
-      All other navigation targets use their
-      actual section IDs.
-    */
     scrollToSection(target)
   }
 
