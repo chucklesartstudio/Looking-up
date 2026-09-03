@@ -130,6 +130,25 @@ export function CoverPage() {
     }
 
     /*
+      Walks & Field Notes should open
+      Daniel's Walk Journal directly
+      on the Archive tab.
+
+      WalksBooking listens for this event
+      and switches the tab from Upcoming
+      to Archive.
+    */
+
+    if (target === '#field-notes') {
+      window.dispatchEvent(
+        new CustomEvent('looking-up:open-archive')
+      )
+
+      scrollToSection('#walks')
+      return
+    }
+
+    /*
       Other navigation items simply scroll
       to their corresponding section.
     */
