@@ -17,14 +17,14 @@ function App() {
 
       <div className="divider">• • •</div>
 
-      <div id="story">
-        <KarfuleStory />
+      <div id="400001">
+        <FourHundredOne />
       </div>
 
       <div className="divider">• • •</div>
 
-      <div id="400001">
-        <FourHundredOne />
+      <div id="story">
+        <KarfuleStory />
       </div>
 
       <div className="divider">• • •</div>
