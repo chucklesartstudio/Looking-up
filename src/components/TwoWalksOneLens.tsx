@@ -1,10 +1,32 @@
 import { useState, useEffect } from 'react'
-import { WALK_CHECKPOINTS } from '../data'
+import { WALK_CHECKPOINTS, IMAGES } from '../data'
 import { useInView } from '../hooks/useInView'
 
-type WalkType = 'ballard' | 'colaba'
+type WalkType = 'ballard' | 'colaba' | 'sea'
 
 function CheckpointGallery({ walk }: { walk: WalkType }) {
+  const images =
+    walk === 'sea'
+      ? [
+          {
+            image: IMAGES.sea1,
+            caption: 'Out on the water — the city seen differently.',
+          },
+          {
+            image: IMAGES.sea2,
+            caption: 'A different Bombay from the deck.',
+          },
+          {
+            image: IMAGES.sea4,
+            caption: 'The evening opens as the city falls behind.',
+          },
+          {
+            image: IMAGES.sea5,
+            caption: 'Looking out — where the harbour meets the sky.',
+          },
+        ]
+      : WALK_CHECKPOINTS[walk]
+
   return (
     <div
       className="checkpoints-grid"
@@ -15,7 +37,7 @@ function CheckpointGallery({ walk }: { walk: WalkType }) {
         animation: 'fadeIn 0.5s var(--ease-out)',
       }}
     >
-      {WALK_CHECKPOINTS[walk].map((checkpoint, i) => (
+      {images.map((checkpoint, i) => (
         <div
           key={i}
           style={{
@@ -62,15 +84,11 @@ export function TwoWalksOneLens() {
     )
   }
 
-  /*
-    Allows the Cover Page and Navbar to open
-    a specific walk from their navigation menus.
-  */
   useEffect(() => {
     const handleExternalWalk = (event: Event) => {
       const customEvent =
         event as CustomEvent<{
-          walk?: WalkType
+          walk?: 'ballard' | 'colaba'
         }>
 
       const walk = customEvent.detail?.walk
@@ -84,10 +102,6 @@ export function TwoWalksOneLens() {
 
       setActiveWalk(walk)
 
-      /*
-        Give React one tick to update the state
-        before scrolling to the section.
-      */
       setTimeout(() => {
         const el =
           document.getElementById('two-walks')
@@ -119,27 +133,6 @@ export function TwoWalksOneLens() {
     }
   }, [])
 
-  /*
-    Looking Out at Sea goes to the existing
-    Walks section.
-  */
-  const goToSea = () => {
-    const el =
-      document.getElementById('walks')
-
-    if (el) {
-      const top =
-        el.getBoundingClientRect().top +
-        window.scrollY -
-        70
-
-      window.scrollTo({
-        top,
-        behavior: 'smooth',
-      })
-    }
-  }
-
   return (
     <section
       id="two-walks"
@@ -166,15 +159,13 @@ export function TwoWalksOneLens() {
           Two Walks, One Lens
         </div>
 
-        {/* =====================================================
-            WALK CARDS
-        ===================================================== */}
+        {/* WALK CARDS */}
 
         <div className="two-walks-grid">
 
-          {/* ===================================================
+          {/* ================================================
               WALK 01 — BALLARD ESTATE
-          =================================================== */}
+          ================================================= */}
 
           <div className="walk-card-wrapper">
 
@@ -238,7 +229,7 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
-            {/* MOBILE IMAGE TILES */}
+            {/* MOBILE GALLERY */}
 
             {activeWalk === 'ballard' && (
               <div className="mobile-walk-content">
@@ -250,9 +241,9 @@ export function TwoWalksOneLens() {
 
           </div>
 
-          {/* ===================================================
+          {/* ================================================
               WALK 02 — COLABA
-          =================================================== */}
+          ================================================= */}
 
           <div className="walk-card-wrapper">
 
@@ -316,7 +307,7 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
-            {/* MOBILE IMAGE TILES */}
+            {/* MOBILE GALLERY */}
 
             {activeWalk === 'colaba' && (
               <div className="mobile-walk-content">
@@ -328,9 +319,9 @@ export function TwoWalksOneLens() {
 
           </div>
 
-          {/* ===================================================
+          {/* ================================================
               LOOKING OUT AT SEA
-          =================================================== */}
+          ================================================= */}
 
           <div className="walk-card-wrapper">
 
@@ -338,16 +329,29 @@ export function TwoWalksOneLens() {
               className={`walk-card reveal reveal-delay-3 ${
                 inView ? 'in-view' : ''
               }`}
-              onClick={goToSea}
+              onClick={() =>
+                toggleWalk('sea')
+              }
               style={{
-                background: 'var(--cream)',
-                color: 'var(--ink)',
+                background:
+                  activeWalk === 'sea'
+                    ? 'var(--teal-deep)'
+                    : 'var(--cream)',
+
+                color:
+                  activeWalk === 'sea'
+                    ? 'var(--cream)'
+                    : 'var(--ink)',
               }}
             >
               <div
                 className="label"
                 style={{
-                  color: 'var(--teal)',
+                  color:
+                    activeWalk === 'sea'
+                      ? 'var(--mustard)'
+                      : 'var(--teal)',
+
                   marginBottom: '12px',
                 }}
               >
@@ -368,7 +372,11 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
-                  color: 'var(--ink-light)',
+
+                  color:
+                    activeWalk === 'sea'
+                      ? 'rgba(250,246,239,0.8)'
+                      : 'var(--ink-light)',
                 }}
               >
                 Beyond the streets and buildings —
@@ -377,13 +385,21 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
+            {/* MOBILE GALLERY */}
+
+            {activeWalk === 'sea' && (
+              <div className="mobile-walk-content">
+                <CheckpointGallery
+                  walk="sea"
+                />
+              </div>
+            )}
+
           </div>
 
         </div>
 
-        {/* =====================================================
-            DESKTOP IMAGE TILES
-        ===================================================== */}
+        {/* DESKTOP GALLERY */}
 
         {activeWalk && (
           <div className="desktop-walk-content">
