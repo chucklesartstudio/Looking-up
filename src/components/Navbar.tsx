@@ -5,27 +5,27 @@ const BASE = import.meta.env.BASE_URL
 const NAV_LINKS = [
   {
     label: 'Looking Up in Ballard Estate',
-    href: '#two-walks',
+    target: 'ballard',
     image: `${BASE}ballard-estate.png`,
   },
   {
     label: 'Looking Up in Colaba',
-    href: '#two-walks',
+    target: 'colaba',
     image: `${BASE}new-colaba-image.png`,
   },
   {
     label: 'Looking Out at Sea',
-    href: '#walks',
+    target: 'walks',
     image: `${BASE}Looking-up-Sea.png`,
   },
   {
     label: '400001 and Co.',
-    href: '#400001',
+    target: '400001',
     image: `${BASE}400001.png`,
   },
   {
     label: 'Walks & Field Notes',
-    href: '#walks',
+    target: 'field-notes',
     image: `${BASE}walks-field-notes.png`,
   },
 ]
@@ -38,16 +38,16 @@ export function Navbar() {
     const onScroll = () =>
       setScrolled(window.scrollY > window.innerHeight - 80)
 
-    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('scroll', onScroll, {
+      passive: true,
+    })
 
     return () =>
       window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleNav = (href: string) => {
-    setMenuOpen(false)
-
-    const el = document.querySelector(href)
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
 
     if (el) {
       const top =
@@ -60,6 +60,37 @@ export function Navbar() {
         behavior: 'smooth',
       })
     }
+  }
+
+  const handleNav = (target: string) => {
+    setMenuOpen(false)
+
+    /*
+      Ballard and Colaba:
+      Tell TwoWalksOneLens which walk to open,
+      then scroll to the Two Walks section.
+    */
+    if (
+      target === 'ballard' ||
+      target === 'colaba'
+    ) {
+      window.dispatchEvent(
+        new CustomEvent('looking-up:open-walk', {
+          detail: {
+            walk: target,
+          },
+        })
+      )
+
+      scrollToSection('two-walks')
+      return
+    }
+
+    /*
+      All other navigation targets use their
+      actual section IDs.
+    */
+    scrollToSection(target)
   }
 
   return (
@@ -93,7 +124,9 @@ export function Navbar() {
             <li key={link.label}>
               <button
                 className="nav-link"
-                onClick={() => handleNav(link.href)}
+                onClick={() =>
+                  handleNav(link.target)
+                }
               >
                 {link.label}
               </button>
@@ -103,7 +136,9 @@ export function Navbar() {
           <li>
             <button
               className="nav-cta"
-              onClick={() => handleNav('#walks')}
+              onClick={() =>
+                handleNav('walks')
+              }
             >
               Book a Walk
             </button>
@@ -112,7 +147,9 @@ export function Navbar() {
 
         <button
           className="nav-hamburger"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() =>
+            setMenuOpen(!menuOpen)
+          }
           aria-label="Toggle menu"
         >
           <span
@@ -146,7 +183,9 @@ export function Navbar() {
               <button
                 key={link.label}
                 className={`polaroid polaroid-${index + 1}`}
-                onClick={() => handleNav(link.href)}
+                onClick={() =>
+                  handleNav(link.target)
+                }
               >
                 <div className="polaroid-image">
                   <img
@@ -164,7 +203,9 @@ export function Navbar() {
 
           <button
             className="nav-cta menu-book-button"
-            onClick={() => handleNav('#walks')}
+            onClick={() =>
+              handleNav('walks')
+            }
           >
             Book a Walk
           </button>
