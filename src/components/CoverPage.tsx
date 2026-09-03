@@ -79,21 +79,25 @@ export function CoverPage() {
     }
   }, [next])
 
-  const scrollToSection = (selector: string) => {
-    const el = document.querySelector(selector)
+  cconst scrollToSection = (selector: string) => {
+  const id = selector.startsWith('#')
+    ? selector.slice(1)
+    : selector
 
-    if (el) {
-      const top =
-        el.getBoundingClientRect().top +
-        window.scrollY -
-        70
+  const el = document.getElementById(id)
 
-      window.scrollTo({
-        top,
-        behavior: 'smooth',
-      })
-    }
+  if (el) {
+    const top =
+      el.getBoundingClientRect().top +
+      window.scrollY -
+      70
+
+    window.scrollTo({
+      top,
+      behavior: 'smooth',
+    })
   }
+}
 
   const handleNav = (target: string) => {
     /*
