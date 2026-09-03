@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { WALK_CHECKPOINTS } from '../data'
 import { useInView } from '../hooks/useInView'
 
@@ -50,15 +50,99 @@ function CheckpointGallery({ walk }: { walk: WalkType }) {
 }
 
 export function TwoWalksOneLens() {
-  const [activeWalk, setActiveWalk] = useState<WalkType | null>(null)
-  const [ref, inView] = useInView<HTMLDivElement>()
+  const [activeWalk, setActiveWalk] =
+    useState<WalkType | null>(null)
+
+  const [ref, inView] =
+    useInView<HTMLDivElement>()
 
   const toggleWalk = (walk: WalkType) => {
-    setActiveWalk(activeWalk === walk ? null : walk)
+    setActiveWalk(
+      activeWalk === walk ? null : walk
+    )
+  }
+
+  /*
+    Allows the Cover Page and Navbar to open
+    a specific walk from their navigation menus.
+  */
+  useEffect(() => {
+    const handleExternalWalk = (event: Event) => {
+      const customEvent =
+        event as CustomEvent<{
+          walk?: WalkType
+        }>
+
+      const walk = customEvent.detail?.walk
+
+      if (
+        walk !== 'ballard' &&
+        walk !== 'colaba'
+      ) {
+        return
+      }
+
+      setActiveWalk(walk)
+
+      /*
+        Give React one tick to update the state
+        before scrolling to the section.
+      */
+      setTimeout(() => {
+        const el =
+          document.getElementById('two-walks')
+
+        if (el) {
+          const top =
+            el.getBoundingClientRect().top +
+            window.scrollY -
+            70
+
+          window.scrollTo({
+            top,
+            behavior: 'smooth',
+          })
+        }
+      }, 0)
+    }
+
+    window.addEventListener(
+      'looking-up:open-walk',
+      handleExternalWalk
+    )
+
+    return () => {
+      window.removeEventListener(
+        'looking-up:open-walk',
+        handleExternalWalk
+      )
+    }
+  }, [])
+
+  /*
+    Looking Out at Sea goes to the existing
+    Walks section.
+  */
+  const goToSea = () => {
+    const el =
+      document.getElementById('walks')
+
+    if (el) {
+      const top =
+        el.getBoundingClientRect().top +
+        window.scrollY -
+        70
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth',
+      })
+    }
   }
 
   return (
     <section
+      id="two-walks"
       ref={ref}
       className="section"
       style={{
@@ -68,8 +152,12 @@ export function TwoWalksOneLens() {
     >
       <div className="container">
 
+        {/* SECTION LABEL */}
+
         <div
-          className={`label-teal reveal ${inView ? 'in-view' : ''}`}
+          className={`label-teal reveal ${
+            inView ? 'in-view' : ''
+          }`}
           style={{
             textAlign: 'center',
             marginBottom: 'var(--space-lg)',
@@ -78,20 +166,31 @@ export function TwoWalksOneLens() {
           Two Walks, One Lens
         </div>
 
+        {/* =====================================================
+            WALK CARDS
+        ===================================================== */}
+
         <div className="two-walks-grid">
 
-          {/* WALK 01 */}
+          {/* ===================================================
+              WALK 01 — BALLARD ESTATE
+          =================================================== */}
+
           <div className="walk-card-wrapper">
+
             <button
               className={`walk-card reveal reveal-delay-1 ${
                 inView ? 'in-view' : ''
               }`}
-              onClick={() => toggleWalk('ballard')}
+              onClick={() =>
+                toggleWalk('ballard')
+              }
               style={{
                 background:
                   activeWalk === 'ballard'
                     ? 'var(--teal-deep)'
                     : 'var(--cream)',
+
                 color:
                   activeWalk === 'ballard'
                     ? 'var(--cream)'
@@ -105,6 +204,7 @@ export function TwoWalksOneLens() {
                     activeWalk === 'ballard'
                       ? 'var(--terra-soft)'
                       : 'var(--terra)',
+
                   marginBottom: '12px',
                 }}
               >
@@ -113,7 +213,9 @@ export function TwoWalksOneLens() {
 
               <h3
                 className="heading-serif"
-                style={{ fontSize: '32px' }}
+                style={{
+                  fontSize: '32px',
+                }}
               >
                 Looking Up in Ballard Estate
               </h3>
@@ -123,37 +225,50 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
+
                   color:
                     activeWalk === 'ballard'
                       ? 'rgba(250,246,239,0.8)'
                       : 'var(--ink-light)',
                 }}
               >
-                Bombay's most disciplined precinct — Deco canopies,
-                Edwardian stone, and the pump where it all begins.
+                Bombay's most disciplined precinct —
+                Deco canopies, Edwardian stone, and the
+                pump where it all begins.
               </p>
             </button>
 
-            {/* MOBILE: Ballard content appears directly under Walk 01 */}
+            {/* MOBILE IMAGE TILES */}
+
             {activeWalk === 'ballard' && (
               <div className="mobile-walk-content">
-                <CheckpointGallery walk="ballard" />
+                <CheckpointGallery
+                  walk="ballard"
+                />
               </div>
             )}
+
           </div>
 
-          {/* WALK 02 */}
+          {/* ===================================================
+              WALK 02 — COLABA
+          =================================================== */}
+
           <div className="walk-card-wrapper">
+
             <button
               className={`walk-card reveal reveal-delay-2 ${
                 inView ? 'in-view' : ''
               }`}
-              onClick={() => toggleWalk('colaba')}
+              onClick={() =>
+                toggleWalk('colaba')
+              }
               style={{
                 background:
                   activeWalk === 'colaba'
                     ? 'var(--terra-deep)'
                     : 'var(--cream)',
+
                 color:
                   activeWalk === 'colaba'
                     ? 'var(--cream)'
@@ -167,6 +282,7 @@ export function TwoWalksOneLens() {
                     activeWalk === 'colaba'
                       ? 'var(--mustard)'
                       : 'var(--teal)',
+
                   marginBottom: '12px',
                 }}
               >
@@ -175,7 +291,9 @@ export function TwoWalksOneLens() {
 
               <h3
                 className="heading-serif"
-                style={{ fontSize: '32px' }}
+                style={{
+                  fontSize: '32px',
+                }}
               >
                 Looking Up in Colaba
               </h3>
@@ -185,31 +303,93 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
+
                   color:
                     activeWalk === 'colaba'
                       ? 'rgba(250,246,239,0.8)'
                       : 'var(--ink-light)',
                 }}
               >
-                From the Causeway to the Gateway — the people and
-                facades that make pin code 400001 feel unchanged.
+                From the Causeway to the Gateway —
+                the people and facades that make pin
+                code 400001 feel unchanged.
               </p>
             </button>
 
-            {/* MOBILE: Colaba content appears directly under Walk 02 */}
+            {/* MOBILE IMAGE TILES */}
+
             {activeWalk === 'colaba' && (
               <div className="mobile-walk-content">
-                <CheckpointGallery walk="colaba" />
+                <CheckpointGallery
+                  walk="colaba"
+                />
               </div>
             )}
+
+          </div>
+
+          {/* ===================================================
+              LOOKING OUT AT SEA
+          =================================================== */}
+
+          <div className="walk-card-wrapper">
+
+            <button
+              className={`walk-card reveal reveal-delay-3 ${
+                inView ? 'in-view' : ''
+              }`}
+              onClick={goToSea}
+              style={{
+                background: 'var(--cream)',
+                color: 'var(--ink)',
+              }}
+            >
+              <div
+                className="label"
+                style={{
+                  color: 'var(--teal)',
+                  marginBottom: '12px',
+                }}
+              >
+                Looking Out
+              </div>
+
+              <h3
+                className="heading-serif"
+                style={{
+                  fontSize: '32px',
+                }}
+              >
+                Looking Out at Sea
+              </h3>
+
+              <p
+                className="italic-note"
+                style={{
+                  fontSize: '16px',
+                  marginTop: '12px',
+                  color: 'var(--ink-light)',
+                }}
+              >
+                Beyond the streets and buildings —
+                Bombay seen from the water, where the
+                city opens out.
+              </p>
+            </button>
+
           </div>
 
         </div>
 
-        {/* DESKTOP CONTENT */}
+        {/* =====================================================
+            DESKTOP IMAGE TILES
+        ===================================================== */}
+
         {activeWalk && (
           <div className="desktop-walk-content">
-            <CheckpointGallery walk={activeWalk} />
+            <CheckpointGallery
+              walk={activeWalk}
+            />
           </div>
         )}
 
