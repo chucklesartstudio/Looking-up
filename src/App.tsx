@@ -12,26 +12,39 @@ function App() {
   return (
     <main id="top">
       <Navbar />
+
       <CoverPage />
+
       <div className="divider">• • •</div>
-      <FieldNotebook />
-      <div className="divider">• • •</div>
+
       <div id="story">
         <KarfuleStory />
       </div>
+
       <div className="divider">• • •</div>
+
       <div id="400001">
         <FourHundredOne />
       </div>
+
       <div className="divider">• • •</div>
+
+      <FieldNotebook />
+
+      <div className="divider">• • •</div>
+
       <div id="two-walks">
         <TwoWalksOneLens />
       </div>
+
       <div className="divider">• • •</div>
+
       <div id="walks">
         <WalksBooking />
       </div>
+
       <ClosingPage />
+
       <Footer />
     </main>
   )
