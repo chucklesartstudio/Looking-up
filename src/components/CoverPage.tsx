@@ -6,7 +6,7 @@ const TEAL = '#008F8A'
 
 const TICKER_ITEMS = [
   'Karfule Petrol Pump, Sprott Road',
-  'Est. 1935',
+  'Est. 1938',
   'DANIEL SEQUEIRA',
   'HERITAGE WALKS · MUMBAI 400001',
 ]
