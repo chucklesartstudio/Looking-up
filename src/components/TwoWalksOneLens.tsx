@@ -10,19 +10,23 @@ function CheckpointGallery({ walk }: { walk: WalkType }) {
       ? [
           {
             image: IMAGES.sea1,
-            caption: 'Out on the water — the city seen differently.',
+            caption:
+              'Out on the water — the city seen differently.',
           },
           {
             image: IMAGES.sea2,
-            caption: 'A different Bombay from the deck.',
+            caption:
+              'A different Bombay from the deck.',
           },
           {
             image: IMAGES.sea4,
-            caption: 'The evening opens as the city falls behind.',
+            caption:
+              'The evening opens as the city falls behind.',
           },
           {
             image: IMAGES.sea5,
-            caption: 'Looking out — where the harbour meets the sky.',
+            caption:
+              'Looking out — where the harbour meets the sky.',
           },
         ]
       : WALK_CHECKPOINTS[walk]
@@ -84,24 +88,33 @@ export function TwoWalksOneLens() {
     )
   }
 
+  /*
+    Allows the Cover Page and Navbar to open
+    Ballard, Colaba, or Sea directly.
+  */
   useEffect(() => {
     const handleExternalWalk = (event: Event) => {
       const customEvent =
         event as CustomEvent<{
-          walk?: 'ballard' | 'colaba'
+          walk?: WalkType
         }>
 
       const walk = customEvent.detail?.walk
 
       if (
         walk !== 'ballard' &&
-        walk !== 'colaba'
+        walk !== 'colaba' &&
+        walk !== 'sea'
       ) {
         return
       }
 
       setActiveWalk(walk)
 
+      /*
+        Wait one tick so the section can respond
+        before performing the scroll.
+      */
       setTimeout(() => {
         const el =
           document.getElementById('two-walks')
@@ -145,7 +158,9 @@ export function TwoWalksOneLens() {
     >
       <div className="container">
 
-        {/* SECTION LABEL */}
+        {/* =====================================================
+            SECTION LABEL
+        ===================================================== */}
 
         <div
           className={`label-teal reveal ${
@@ -159,16 +174,17 @@ export function TwoWalksOneLens() {
           Two Walks, One Lens
         </div>
 
-        {/* WALK CARDS */}
+        {/* =====================================================
+            WALK CARDS
+        ===================================================== */}
 
         <div className="two-walks-grid">
 
-          {/* ================================================
+          {/* ===================================================
               WALK 01 — BALLARD ESTATE
-          ================================================= */}
+          =================================================== */}
 
           <div className="walk-card-wrapper">
-
             <button
               className={`walk-card reveal reveal-delay-1 ${
                 inView ? 'in-view' : ''
@@ -181,7 +197,6 @@ export function TwoWalksOneLens() {
                   activeWalk === 'ballard'
                     ? 'var(--teal-deep)'
                     : 'var(--cream)',
-
                 color:
                   activeWalk === 'ballard'
                     ? 'var(--cream)'
@@ -195,7 +210,6 @@ export function TwoWalksOneLens() {
                     activeWalk === 'ballard'
                       ? 'var(--terra-soft)'
                       : 'var(--terra)',
-
                   marginBottom: '12px',
                 }}
               >
@@ -216,7 +230,6 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
-
                   color:
                     activeWalk === 'ballard'
                       ? 'rgba(250,246,239,0.8)'
@@ -229,7 +242,7 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
-            {/* MOBILE GALLERY */}
+            {/* MOBILE — BALLARD IMAGE TILES */}
 
             {activeWalk === 'ballard' && (
               <div className="mobile-walk-content">
@@ -238,15 +251,13 @@ export function TwoWalksOneLens() {
                 />
               </div>
             )}
-
           </div>
 
-          {/* ================================================
+          {/* ===================================================
               WALK 02 — COLABA
-          ================================================= */}
+          =================================================== */}
 
           <div className="walk-card-wrapper">
-
             <button
               className={`walk-card reveal reveal-delay-2 ${
                 inView ? 'in-view' : ''
@@ -259,7 +270,6 @@ export function TwoWalksOneLens() {
                   activeWalk === 'colaba'
                     ? 'var(--terra-deep)'
                     : 'var(--cream)',
-
                 color:
                   activeWalk === 'colaba'
                     ? 'var(--cream)'
@@ -273,7 +283,6 @@ export function TwoWalksOneLens() {
                     activeWalk === 'colaba'
                       ? 'var(--mustard)'
                       : 'var(--teal)',
-
                   marginBottom: '12px',
                 }}
               >
@@ -294,7 +303,6 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
-
                   color:
                     activeWalk === 'colaba'
                       ? 'rgba(250,246,239,0.8)'
@@ -307,7 +315,7 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
-            {/* MOBILE GALLERY */}
+            {/* MOBILE — COLABA IMAGE TILES */}
 
             {activeWalk === 'colaba' && (
               <div className="mobile-walk-content">
@@ -316,15 +324,13 @@ export function TwoWalksOneLens() {
                 />
               </div>
             )}
-
           </div>
 
-          {/* ================================================
+          {/* ===================================================
               LOOKING OUT AT SEA
-          ================================================= */}
+          =================================================== */}
 
           <div className="walk-card-wrapper">
-
             <button
               className={`walk-card reveal reveal-delay-3 ${
                 inView ? 'in-view' : ''
@@ -337,7 +343,6 @@ export function TwoWalksOneLens() {
                   activeWalk === 'sea'
                     ? 'var(--teal-deep)'
                     : 'var(--cream)',
-
                 color:
                   activeWalk === 'sea'
                     ? 'var(--cream)'
@@ -351,7 +356,6 @@ export function TwoWalksOneLens() {
                     activeWalk === 'sea'
                       ? 'var(--mustard)'
                       : 'var(--teal)',
-
                   marginBottom: '12px',
                 }}
               >
@@ -372,7 +376,6 @@ export function TwoWalksOneLens() {
                 style={{
                   fontSize: '16px',
                   marginTop: '12px',
-
                   color:
                     activeWalk === 'sea'
                       ? 'rgba(250,246,239,0.8)'
@@ -385,7 +388,7 @@ export function TwoWalksOneLens() {
               </p>
             </button>
 
-            {/* MOBILE GALLERY */}
+            {/* MOBILE — SEA IMAGE TILES */}
 
             {activeWalk === 'sea' && (
               <div className="mobile-walk-content">
@@ -394,12 +397,13 @@ export function TwoWalksOneLens() {
                 />
               </div>
             )}
-
           </div>
 
         </div>
 
-        {/* DESKTOP GALLERY */}
+        {/* =====================================================
+            DESKTOP IMAGE TILES
+        ===================================================== */}
 
         {activeWalk && (
           <div className="desktop-walk-content">
