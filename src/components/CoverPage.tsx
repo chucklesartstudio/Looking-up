@@ -22,7 +22,7 @@ const MENU_ITEMS = [
   },
   {
     label: 'Looking Out at Sea',
-    target: '#walks',
+    target: 'sea',
   },
   {
     label: '400001 and Co.',
@@ -79,36 +79,44 @@ export function CoverPage() {
     }
   }, [next])
 
+  /* =========================================================
+     SECTION NAVIGATION
+  ========================================================= */
+
   const scrollToSection = (selector: string) => {
-  const id = selector.startsWith('#')
-    ? selector.slice(1)
-    : selector
+    const id = selector.startsWith('#')
+      ? selector.slice(1)
+      : selector
 
-  const el = document.getElementById(id)
+    const el = document.getElementById(id)
 
-  if (el) {
-    const top =
-      el.getBoundingClientRect().top +
-      window.scrollY -
-      70
+    if (el) {
+      const top =
+        el.getBoundingClientRect().top +
+        window.scrollY -
+        70
 
-    window.scrollTo({
-      top,
-      behavior: 'smooth',
-    })
+      window.scrollTo({
+        top,
+        behavior: 'smooth',
+      })
+    }
   }
-}
 
   const handleNav = (target: string) => {
     /*
-      Ballard and Colaba need to:
-      1. Open the correct walk inside TwoWalksOneLens
-      2. Scroll to the Two Walks section
+      Ballard, Colaba and Sea all live inside
+      the Two Walks, One Lens section.
 
-      TwoWalksOneLens will listen for this event.
+      We send an event so TwoWalksOneLens
+      can open the correct image gallery.
     */
 
-    if (target === 'ballard' || target === 'colaba') {
+    if (
+      target === 'ballard' ||
+      target === 'colaba' ||
+      target === 'sea'
+    ) {
       window.dispatchEvent(
         new CustomEvent('looking-up:open-walk', {
           detail: {
@@ -120,6 +128,11 @@ export function CoverPage() {
       scrollToSection('#two-walks')
       return
     }
+
+    /*
+      Other navigation items simply scroll
+      to their corresponding section.
+    */
 
     scrollToSection(target)
   }
@@ -148,7 +161,9 @@ export function CoverPage() {
             transition:
               'opacity 2.2s ease-in-out, transform 3s ease-out',
             transform:
-              i === current ? 'scale(1)' : 'scale(1.02)',
+              i === current
+                ? 'scale(1)'
+                : 'scale(1.02)',
           }}
         >
           <img
@@ -199,7 +214,9 @@ export function CoverPage() {
           top: 0,
           bottom: 0,
 
-          width: isMobile ? '40px' : '56px',
+          width: isMobile
+            ? '40px'
+            : '56px',
 
           background: 'rgba(0,0,0,0.48)',
 
@@ -213,7 +230,9 @@ export function CoverPage() {
         }}
       >
         <button
-          onClick={() => scrollToSection('#walks')}
+          onClick={() =>
+            scrollToSection('#walks')
+          }
           style={{
             background: 'none',
             border: 'none',
@@ -278,7 +297,7 @@ export function CoverPage() {
       {/* =========================================================
           RIGHT TRACK LIST / PANE
 
-          The pane remains visible on BOTH desktop and mobile.
+          Visible on BOTH desktop and mobile.
       ========================================================= */}
 
       <nav
